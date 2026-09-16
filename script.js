@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const form=document.getElementById('order-form');const message=document.getElementById('form-message');if(form){form.addEventListener('submit',e=>{e.preventDefault();message.textContent='درخواست شما ثبت شد. اطلاعات خرید به زودی تکمیل می‌شود.';form.reset()})}});
