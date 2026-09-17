@@ -38,6 +38,10 @@ This is the **public-facing** part of the business:
 
 This separation improves security and makes development cleaner.
 
+## Implementation roadmap and continuity
+
+All remaining website work is tracked in `IMPLEMENTATION.md`. It contains phase/task IDs, status, production definition-of-done and continuation rules for future AI/developer sessions.
+
 ---
 
 ## Future Plans
@@ -49,4 +53,4 @@ This separation improves security and makes development cleaner.
 ---
 
 **Maintainer:** Behnam Afrasiyabi  
-**Last updated:** 2026-09-15
+**Last updated:** 2026-09-18
