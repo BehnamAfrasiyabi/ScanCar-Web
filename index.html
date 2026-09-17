@@ -240,23 +240,15 @@ main{
 }
 .tag-dot{width:7px;height:7px;border-radius:50%;background:var(--red);
   box-shadow:0 0 10px var(--red);animation:pulse 1.7s ease-in-out infinite}
-h1{font-size:clamp(2.7rem,6.2vw,4.5rem);font-weight:900;line-height:1.15;margin:18px 0 12px}
-.highlight{
-  background:linear-gradient(120deg,#ff5b66,#ff2233 45%,#a30d1c);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 28px rgba(255,34,51,.35));
-}
-.desc{
-  color:var(--muted);font-size:clamp(.92rem,1.2vw,1.05rem);line-height:2.2;
-  max-width:480px;margin-bottom:clamp(20px,3.4vh,34px);
-}
-.desc b{color:#e2e5eb;font-weight:700}
-
-.actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+h1{font-size:clamp(3.6rem,7vw,6.5rem);line-height:.95;font-weight:900;letter-spacing:-.05em;margin:18px 0 12px}
+.highlight{color:var(--red);text-shadow:0 0 30px rgba(255,34,51,.3)}
+.desc{color:var(--muted);font-size:clamp(.9rem,1.25vw,1.05rem);line-height:2.05;max-width:520px;margin-bottom:20px}
+.desc b{color:#e5e7ec;font-weight:700}
+.actions{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
 .btn-buy{
-  position:relative;overflow:hidden;border:none;
-  display:inline-flex;align-items:center;gap:11px;
-  padding:16px 42px;border-radius:15px;
+  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border:0;border-radius:14px;
   background:linear-gradient(135deg,#ff3444,#d81024 55%,#a30d1c);
   color:#fff;font-size:1.02rem;font-weight:800;
   box-shadow:0 12px 34px rgba(255,34,51,.35),inset 0 1px 0 rgba(255,255,255,.28);
@@ -303,7 +295,7 @@ h1{font-size:clamp(2.7rem,6.2vw,4.5rem);font-weight:900;line-height:1.15;margin:
 
 /* ============ ریسپانسیو ============ */
 @media (max-width:900px){
-  main{flex-direction:column-reverse;gap:14px;justify-content:center;padding-top:4px}
+  main{flex-direction:column;gap:14px;justify-content:center;padding-top:4px}
   .frame{width:min(80vw,400px);height:min(38vh,360px);border-radius:22px}
   .status-bar{padding:8px 12px;font-size:.7rem}
   .chip-2{display:none}
@@ -350,7 +342,7 @@ h1{font-size:clamp(2.7rem,6.2vw,4.5rem);font-weight:900;line-height:1.15;margin:
 
   <a class="logo" href="#" aria-label="SCAN CAR">
     <span class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-4h14v4zm-11.5-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm9 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-4h14v4zm-11.5-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5 0 1.5 1.5 1.5zm9 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5 0-1.5 1.5.67 1.5 1.5 1.5z"/></svg>
     </span>
     <span class="logo-text"><strong>SCAN<em>CAR</em></strong></span>
   </a>
@@ -414,7 +406,7 @@ h1{font-size:clamp(2.7rem,6.2vw,4.5rem);font-weight:900;line-height:1.15;margin:
 
     <div class="actions">
       <button class="btn-buy" id="buyBtn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.73 1.33.21 2.96 1.75 2.96h12.5v-2H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.73 1.33.21 2.96 1.75 2.96h12.5v-2H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1z"/></svg>
         خرید دستگاه
       </button>
       <div class="mini">
