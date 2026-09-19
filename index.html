@@ -42,7 +42,10 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .cta{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;background:linear-gradient(135deg,var(--red),var(--red-deep));color:#fff;font-weight:700;font-size:1rem;border:none;box-shadow:0 8px 32px rgba(255,34,51,.4);transition:transform .2s,box-shadow .25s}
 .cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,34,51,.5)}
 .hero-visual img{width:100%;height:auto;filter:drop-shadow(0 20px 50px rgba(255,34,51,.25));animation:rise 1s ease both .2s}
-.footer{position:relative;z-index:5;text-align:center;padding:12px;color:var(--muted);font-size:.75rem}
+.footer{position:relative;z-index:5;padding:12px 20px 16px;color:var(--muted);font-size:.75rem}
+.footer-inner{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
+.footer-inner span:first-child{color:#e8e9ee;font-weight:700}
+@media(max-width:560px){.footer-inner{gap:6px 14px}.footer-inner span{width:100%}}
 </style>
 </head>
 <body>
@@ -54,8 +57,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
     <img class="logo-img" src="images/logo-red.svg" alt="SCANCAR" width="48" height="48">
     <span class="logo-text"><strong>SCAN<em>CAR</em></strong></span>
   </a>
-  <button class="btn-login" type="button">ورود / ثبت‌نام</button>
-</header>
+  </header>
 <main class="main">
   <div class="hero">
     <div class="hero-copy">
@@ -68,6 +70,12 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
     </div>
   </div>
 </main>
-<footer class="footer">© 2026 SCAN CAR — همه حقوق محفوظ است</footer>
+<footer class="footer">
+  <div class="footer-inner">
+    <span>تماس با ما</span>
+    <span>شماره تماس: ۰۹۱۲۱۲۳۴۵۶۷</span>
+    <span>آدرس: کرج، ایران</span>
+  </div>
+</footer>
 </body>
 </html>
