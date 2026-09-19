@@ -2,79 +2,361 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#060608">
-<meta name="description" content="دیاگ S1 — دستگاه تشخیص خطای حرفه‌ای خودرو، سازگار با تمام خودروهای داخلی">
-<title>SCAN CAR</title>
+<meta name="description" content="دیاگ S1 — دستگاه تشخیص خطای حرفه‌ای خودرو">
+<title>دیاگ S1 | SCAN CAR</title>
 <link rel="icon" type="image/svg+xml" href="images/logo-red.svg">
 <link rel="apple-touch-icon" href="images/logo-red.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-:root{--red:#ff2233;--red-deep:#c00d20;--bg:#060608;--text:#f4f4f7;--muted:#a7adba}
+:root{
+  --bg:#060608;
+  --surface:#0b0b0f;
+  --text:#f5f5f7;
+  --muted:#a4a7b0;
+  --red:#ff2233;
+  --red-dark:#c90f20;
+  --line:rgba(255,255,255,.08);
+  --max:1180px;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{height:100vh;height:100dvh;overflow:hidden;font-family:'Vazirmatn','Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;position:relative;-webkit-font-smoothing:antialiased}
-::selection{background:var(--red);color:#fff}
-button{font-family:inherit;cursor:pointer}
-img{display:block}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 45%,#000 25%,transparent 78%);mask-image:radial-gradient(ellipse 90% 80% at 50% 45%,#000 25%,transparent 78%)}
-.glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
-.glow-a{width:min(58vw,720px);aspect-ratio:1;right:-12%;top:-14%;background:radial-gradient(circle,rgba(255,34,51,.16),transparent 62%)}
-.glow-b{width:min(42vw,520px);aspect-ratio:1;left:-12%;bottom:-22%;background:radial-gradient(circle,rgba(255,34,51,.09),transparent 65%)}
-.bg-word{position:fixed;bottom:-8vh;left:-1vw;z-index:0;direction:ltr;font-size:clamp(170px,26vw,380px);font-weight:900;font-style:italic;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.045);user-select:none;pointer-events:none}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
-@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-.topbar{position:relative;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:clamp(14px,2.4vh,24px) clamp(18px,4vw,52px);animation:fadeDown .8s ease both}
-.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);direction:ltr}
-.logo-img{width:48px;height:48px;border-radius:13px;object-fit:contain;flex:none;box-shadow:0 0 20px rgba(255,34,51,.35);border:1px solid rgba(255,34,51,.35)}
-.logo-text strong{font-size:1.08rem;font-weight:900;letter-spacing:.16em}
-.logo-text em{font-style:normal;color:var(--red)}
-.main{position:relative;z-index:2;flex:1;display:grid;place-items:center;padding:0 clamp(18px,4vw,52px) clamp(20px,4vh,40px);overflow:hidden}
-.hero{max-width:1100px;width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,56px);align-items:center}
-@media(max-width:860px){.hero{grid-template-columns:1fr;text-align:center}.hero-visual{order:-1;max-width:320px;margin:0 auto}}
-.hero h1{font-size:clamp(1.8rem,4.2vw,3.1rem);font-weight:900;line-height:1.25;margin-bottom:14px}
-.hero h1 span{color:var(--red)}
-.hero p{color:var(--muted);font-size:clamp(.95rem,1.5vw,1.12rem);line-height:1.75;margin-bottom:28px}
-.cta{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;background:linear-gradient(135deg,var(--red),var(--red-deep));color:#fff;font-weight:700;font-size:1rem;border:none;box-shadow:0 8px 32px rgba(255,34,51,.4);transition:transform .2s,box-shadow .25s}
-.cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,34,51,.5)}
-.hero-visual img{width:100%;height:auto;filter:drop-shadow(0 20px 50px rgba(255,34,51,.25));animation:rise 1s ease both .2s}
-.footer{position:relative;z-index:5;padding:10px 20px 14px;color:var(--muted);font-size:.75rem}
-.footer-inner{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
-.contact-title{color:#e8e9ee;font-weight:700}
-.contact-item{display:flex;align-items:center;gap:6px}
-.contact-item a{color:#f4f4f7;text-decoration:none}
-@media(max-width:560px){.footer{padding-bottom:10px}.footer-inner{gap:5px 14px}.contact-item{width:100%;justify-content:center}}</style>
+html,body{width:100%;height:100%}
+body{
+  min-height:100vh;
+  min-height:100dvh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 35%,rgba(255,34,51,.10),transparent 30%),
+    radial-gradient(circle at 15% 85%,rgba(255,34,51,.055),transparent 28%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Vazirmatn","Segoe UI",Tahoma,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img{display:block;max-width:100%}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.45;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse at center,#000 15%,transparent 80%);
+}
+
+.page{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Header */
+.header{
+  width:100%;
+  flex:0 0 auto;
+  padding:clamp(16px,3vh,28px) clamp(20px,5vw,64px);
+}
+.header-inner{
+  width:100%;
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  direction:ltr;
+}
+.brand img{
+  width:clamp(40px,4vw,50px);
+  height:clamp(40px,4vw,50px);
+  object-fit:contain;
+}
+.brand-name{
+  font-size:clamp(17px,1.8vw,21px);
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.brand-name span{color:var(--red)}
+
+/* Hero */
+.hero{
+  flex:1 1 auto;
+  width:100%;
+  min-height:0;
+  max-width:var(--max);
+  margin:auto;
+  padding:0 clamp(20px,5vw,64px) clamp(10px,2vh,24px);
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  align-items:center;
+  gap:clamp(25px,6vw,90px);
+}
+.product{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.product:before{
+  content:"";
+  position:absolute;
+  width:min(75%,430px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,34,51,.16),transparent 68%);
+  filter:blur(8px);
+}
+.product img{
+  position:relative;
+  width:min(100%,530px);
+  max-height:min(68vh,560px);
+  object-fit:contain;
+  filter:drop-shadow(0 28px 42px rgba(0,0,0,.65)) drop-shadow(0 0 28px rgba(255,34,51,.10));
+  animation:productIn .8s ease both;
+}
+.content{
+  min-width:0;
+  max-width:560px;
+  justify-self:end;
+  text-align:right;
+  animation:contentIn .75s ease both .08s;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:18px;
+  color:#e8e8ec;
+  font-size:clamp(12px,1.2vw,14px);
+  font-weight:600;
+}
+.eyebrow i{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 13px rgba(255,34,51,.8);
+}
+h1{
+  font-size:clamp(32px,4.4vw,58px);
+  line-height:1.25;
+  font-weight:900;
+  letter-spacing:-.025em;
+  margin-bottom:18px;
+}
+h1 strong{color:var(--red)}
+.description{
+  max-width:540px;
+  color:var(--muted);
+  font-size:clamp(14px,1.45vw,17px);
+  line-height:2;
+  margin-bottom:28px;
+}
+.actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.buy{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:175px;
+  padding:13px 24px;
+  border:0;
+  border-radius:13px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--red),var(--red-dark));
+  box-shadow:0 12px 30px rgba(255,34,51,.24);
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.buy:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(255,34,51,.34);
+}
+
+/* Footer */
+.footer{
+  flex:0 0 auto;
+  width:100%;
+  border-top:1px solid var(--line);
+  padding:12px clamp(20px,5vw,64px) max(12px,env(safe-area-inset-bottom));
+}
+.footer-inner{
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:28px;
+  color:var(--muted);
+  font-size:12px;
+}
+.footer-title{
+  color:#e9e9ed;
+  font-weight:700;
+}
+.contact{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.contact-label{color:#777b86}
+.contact a{color:#dfe0e5}
+
+/* Animations */
+@keyframes productIn{
+  from{opacity:0;transform:translateY(24px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+@keyframes contentIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+
+/* Tablet */
+@media(max-width:900px){
+  body{overflow:auto}
+  .page{min-height:100dvh;height:auto}
+  .hero{
+    flex:none;
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto;
+    gap:8px;
+    padding-top:8px;
+    padding-bottom:22px;
+  }
+  .product{
+    order:1;
+    min-height:0;
+  }
+  .product img{
+    width:min(72vw,390px);
+    max-height:42vh;
+  }
+  .content{
+    order:2;
+    justify-self:center;
+    width:100%;
+    max-width:620px;
+    text-align:center;
+  }
+  .eyebrow{margin-bottom:10px}
+  h1{font-size:clamp(30px,6vw,44px);margin-bottom:12px}
+  .description{margin:0 auto 20px;line-height:1.8}
+  .actions{justify-content:center}
+  .footer-inner{justify-content:center;flex-wrap:wrap;gap:8px 22px}
+}
+
+/* Small phones */
+@media(max-width:560px){
+  .header{padding:13px 18px}
+  .brand img{width:40px;height:40px}
+  .brand-name{font-size:16px}
+  .hero{
+    gap:2px;
+    padding:0 18px 16px;
+  }
+  .product img{
+    width:min(74vw,300px);
+    max-height:34vh;
+  }
+  .content{padding-bottom:2px}
+  .eyebrow{font-size:11px;margin-bottom:7px}
+  h1{font-size:clamp(27px,8vw,34px);line-height:1.3;margin-bottom:10px}
+  .description{
+    font-size:13px;
+    line-height:1.75;
+    margin-bottom:15px;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .buy{width:100%;min-width:0;padding:12px 20px}
+  .actions{width:100%}
+  .footer{padding:10px 18px max(10px,env(safe-area-inset-bottom))}
+  .footer-inner{font-size:11px;gap:5px 14px}
+  .contact{width:100%;justify-content:center}
+}
+
+/* Very short screens */
+@media(max-height:650px) and (min-width:561px){
+  .header{padding-top:10px;padding-bottom:10px}
+  .product img{max-height:50vh}
+  h1{font-size:clamp(28px,4vw,42px)}
+  .description{margin-bottom:15px}
+  .footer{padding-top:8px;padding-bottom:8px}
+}
+</style>
 </head>
+
 <body>
-<div class="glow glow-a"></div>
-<div class="glow glow-b"></div>
-<div class="bg-word" aria-hidden="true">SCAN</div>
-<header class="topbar">
-  <a class="logo" href="#" aria-label="SCAN CAR">
-    <img class="logo-img" src="images/logo-red.svg" alt="SCANCAR" width="48" height="48">
-    <span class="logo-text"><strong>SCAN<em>CAR</em></strong></span>
-  </a>
-  </header>
-<main class="main">
-  <div class="hero">
-    <div class="hero-copy">
-      <h1>دیاگ هوشمند <span>S1</span><br>برای تمام خودروهای داخلی</h1>
-      <p>دستگاه تشخیص خطای حرفه‌ای ScanCar با پشتیبانی از ECUهای ایران‌خودرو، سایپا و خودروهای چینی. اتصال سریع، عیب‌یابی دقیق و به‌روزرسانی آنلاین.</p>
-      <button class="cta" type="button">شروع کار با S1</button>
+<div class="page">
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="#" aria-label="SCAN CAR">
+        <img src="images/logo-red.svg" alt="SCAN CAR" width="50" height="50">
+        <span class="brand-name">SCAN<span>CAR</span></span>
+      </a>
     </div>
-    <div class="hero-visual">
+  </header>
+
+  <main class="hero">
+    <div class="product">
       <img src="images/Product_S1.png" alt="دستگاه دیاگ S1" draggable="false">
     </div>
-  </div>
-</main>
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="contact-title">تماس با ما</div>
-    <div class="contact-item"><span>شماره تماس</span><a href="tel:09121234567">۰۹۱۲۱۲۳۴۵۶۷</a></div>
-    <div class="contact-item"><span>آدرس</span><span>کرج، ایران</span></div>
-  </div>
-</footer>
+
+    <section class="content">
+      <div class="eyebrow"><i></i><span>دیاگ حرفه‌ای SCAN CAR</span></div>
+      <h1>دیاگ هوشمند <strong>S1</strong><br>برای خودروهای داخلی</h1>
+      <p class="description">
+        دستگاه تشخیص خطای حرفه‌ای خودرو با طراحی اختصاصی ScanCar؛
+        سریع، دقیق و آماده برای عیب‌یابی حرفه‌ای.
+      </p>
+      <div class="actions">
+        <button class="buy" type="button">خرید دستگاه S1</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-title">تماس با ما</span>
+      <div class="contact">
+        <span class="contact-label">شماره تماس:</span>
+        <a href="tel:09121234567">۰۹۱۲۱۲۳۴۵۶۷</a>
+      </div>
+      <div class="contact">
+        <span class="contact-label">آدرس:</span>
+        <span>کرج، ایران</span>
+      </div>
+    </div>
+  </footer>
+</div>
 </body>
 </html>
