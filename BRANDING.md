@@ -20,7 +20,7 @@ This repository follows the ScanCar product branding standard.
 
 ## Fixed technical exception
 
-The ESP32 Access Point SSID `SCARDIAG-XXXX` is a finalized technical protocol value and must not be renamed as part of visual branding changes.
+The ESP32 Access Point SSID is `ScanCar-XXXX`. This is the canonical customer-visible device network name.
 
 ## Brand hierarchy
 
