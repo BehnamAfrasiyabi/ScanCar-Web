@@ -62,6 +62,10 @@ Responsive, accessible, SEO-ready, secure and connected to the real hardware ord
 
 Repository responsibility is documented. Product visual/asset work is the immediate website track; hardware checkout remains future work.
 
+## Local integration checkpoint — 2026-09-19
+
+No website/backend integration was changed in this checkpoint. The public site remains a static hardware landing page; software-pack licensing stays isolated in ScanCar-App and ScanCar-Admin as designed.
+
 ## Continuity rule
 
 Keep hardware commerce isolated from ECU licensing. Update this file after every meaningful implementation milestone.
