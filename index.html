@@ -3,9 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="logo.png" rel="shortcut icon" />
-  <title>SCANCAR S1</title>
-  <meta name="description" content="دیاگ خودرویی حرفه‌ای SCANCAR S1 - عیب‌یاب سریع، دقیق و قابل اعتماد برای خودروهای شما" />
+  <link href="images/logo.png" rel="shortcut icon" type="image/png" />
+  <title>SCANCAR S1 | دیاگ خودرویی حرفه‌ای</title>
+  <meta name="description" content="SCANCAR S1؛ دیاگ خودرویی حرفه‌ای با تشخیص سریع، دقیق و آفلاین برای خودروهای شما." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://scancar.ir/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://scancar.ir/" />
+  <meta property="og:title" content="SCANCAR S1 | دیاگ خودرویی حرفه‌ای" />
+  <meta property="og:description" content="تشخیص سریع و دقیق خودرو با SCANCAR S1." />
+  <meta property="og:image" content="https://scancar.ir/images/Product_S1.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -49,6 +58,23 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 200;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-150%);
+      transition: transform var(--transition);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
     }
 
     a {
@@ -838,6 +864,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">رفتن به محتوای اصلی</a>
+
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="header">
     <div class="container header-inner">
@@ -853,7 +881,8 @@
   </header>
 
   <!-- ===== HERO ===== -->
-  <section class="hero">
+  <main id="main-content">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-inner">
 
       <!-- Text column -->
@@ -863,7 +892,7 @@
           <span>نسل جدید دیاگ خودرویی</span>
         </div>
 
-        <h1 class="hero-title fade-up d2">SCAN CAR <span class="red">S1</span></h1>
+        <h1 id="hero-title" class="hero-title fade-up d2">SCANCAR <span class="red">S1</span></h1>
 		
 		      <!-- Product image column -->
       <div class="hero-visual fade-up d3">
@@ -879,8 +908,8 @@
           عیب‌یاب سریع، دقیق و قابل اعتماد برای خودروهای شما. SCAN CAR S1 با پوشش کامل سیستم‌های الکترونیکی خودرو، خطاهای موتور، ترمز، گیربکس و سیستم‌های ایمنی را در چند ثانیه شناسایی می‌کند.
         </p>
 
-        <a href="#" class="hero-cta fade-up d5">
-          <span>خرید محصول</span>
+        <a href="#contact" class="hero-cta fade-up d5">
+          <span>دریافت اطلاعات خرید</span>
         </a>
       </div>
 
@@ -888,6 +917,59 @@
 
     </div>
   </section>
+
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow"><span class="dot"></span><span>چرا SCANCAR S1؟</span></div>
+        <h2 id="features-title">یک ابزار حرفه‌ای، برای تصمیم دقیق‌تر</h2>
+        <p>طراحی‌شده برای تشخیص سریع، قابل‌اعتماد و قابل‌استفاده در تعمیرگاه یا کنار خودرو.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3>تشخیص سریع</h3>
+          <p>اتصال ساده و نمایش شفاف وضعیت ECUها و خطاهای خودرو.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">◉</div>
+          <h3>آفلاین و مستقل</h3>
+          <p>پس از نصب بسته‌های لازم، تشخیص معمولی بدون وابستگی دائمی به اینترنت انجام می‌شود.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">✓</div>
+          <h3>ساختار قابل توسعه</h3>
+          <p>تعریف‌های ECU به‌صورت داده‌محور توسعه پیدا می‌کنند تا پوشش خودروها قابل گسترش باشد.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="how-it-works" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow"><span class="dot"></span><span>روش استفاده</span></div>
+        <h2 id="how-title">از اتصال تا تشخیص، ساده و روشن</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card"><h3>۱. اتصال</h3><p>دستگاه را به خودرو متصل کنید و با موبایل یا لپ‌تاپ به شبکه ScanCar وصل شوید.</p></article>
+        <article class="feature-card"><h3>۲. انتخاب</h3><p>خودرو و ECU موردنظر را از داخل اپلیکیشن انتخاب کنید.</p></article>
+        <article class="feature-card"><h3>۳. بررسی</h3><p>پارامترها و خطاهای قابل پشتیبانی را مشاهده و بررسی کنید.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow"><span class="dot"></span><span>ارتباط با ما</span></div>
+        <h2 id="contact-title">برای اطلاعات سفارش سخت‌افزار</h2>
+        <p>این وب‌سایت فقط مربوط به معرفی و سفارش سخت‌افزار است. خرید بسته‌های نرم‌افزاری ECU داخل اپلیکیشن انجام می‌شود.</p>
+        <a class="hero-cta" href="mailto:info@scancar.ir"><span>تماس با SCAN CAR</span></a>
+      </div>
+    </div>
+  </section>
+  </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
@@ -901,6 +983,18 @@
 
     </div>
   </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "SCANCAR S1",
+    "brand": { "@type": "Brand", "name": "SCAN CAR" },
+    "description": "دیاگ خودرویی حرفه‌ای و قابل حمل",
+    "image": "https://scancar.ir/images/Product_S1.png",
+    "url": "https://scancar.ir/"
+  }
+  </script>
 
   <script>
     // ===== Sticky header shadow =====

@@ -12,14 +12,14 @@
 
 | ID | Task | Status |
 |---|---|---|
-| WEB-A01 | Project scaffold/build | todo |
-| WEB-A02 | Brand/logo/product assets | in_progress |
-| WEB-A03 | Responsive landing page | todo |
-| WEB-A04 | Product specification section | todo |
-| WEB-A05 | How ScanCar works | todo |
-| WEB-A06 | Offline-first/security/value proposition | todo |
+| WEB-A01 | Project scaffold/build | done (static site validation) |
+| WEB-A02 | Brand/logo/product assets | done |
+| WEB-A03 | Responsive landing page | done |
+| WEB-A04 | Product specification section | done (feature/value sections) |
+| WEB-A05 | How ScanCar works | done |
+| WEB-A06 | Offline-first/security/value proposition | done |
 | WEB-A07 | FAQ | todo |
-| WEB-A08 | Contact/support | todo |
+| WEB-A08 | Contact/support | done (email contact CTA) |
 
 ## Phase WEB-B — Hardware commerce
 
@@ -37,9 +37,9 @@
 
 | ID | Task | Status |
 |---|---|---|
-| WEB-C01 | SEO metadata | todo |
-| WEB-C02 | Open Graph/social preview | todo |
-| WEB-C03 | Structured product data | todo |
+| WEB-C01 | SEO metadata | done |
+| WEB-C02 | Open Graph/social preview | done |
+| WEB-C03 | Structured product data | done |
 | WEB-C04 | Performance optimization | todo |
 | WEB-C05 | Accessibility audit | todo |
 | WEB-C06 | Legal/privacy/terms pages | todo |
@@ -69,3 +69,9 @@ No website/backend integration was changed in this checkpoint. The public site r
 ## Continuity rule
 
 Keep hardware commerce isolated from ECU licensing. Update this file after every meaningful implementation milestone.
+## Public landing checkpoint — 2026-09-20
+
+- Restored the intended landing-page sections: product value, usage flow and hardware contact CTA.
+- Added canonical URL, Open Graph/Twitter metadata, Product JSON-LD, theme metadata and an accessible skip link/main landmark.
+- The website explicitly keeps hardware contact separate from ECU software-pack purchasing.
+- Added `scripts/validate-site.mjs` to verify required metadata, accessibility anchors, structured data and image assets.
