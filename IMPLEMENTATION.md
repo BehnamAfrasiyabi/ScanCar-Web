@@ -18,7 +18,7 @@
 | WEB-A04 | Product specification section | done (feature/value sections) |
 | WEB-A05 | How ScanCar works | done |
 | WEB-A06 | Offline-first/security/value proposition | done |
-| WEB-A07 | FAQ | todo |
+| WEB-A07 | FAQ | done (static product FAQ) |
 | WEB-A08 | Contact/support | done (email contact CTA) |
 
 ## Phase WEB-B — Hardware commerce
@@ -42,7 +42,7 @@
 | WEB-C03 | Structured product data | done |
 | WEB-C04 | Performance optimization | todo |
 | WEB-C05 | Accessibility audit | todo |
-| WEB-C06 | Legal/privacy/terms pages | todo |
+| WEB-C06 | Legal/privacy/terms pages | done (initial static policy sections; legal review remains before launch) |
 
 ## Phase WEB-D — Production hardening
 
@@ -75,3 +75,4 @@ Keep hardware commerce isolated from ECU licensing. Update this file after every
 - Added canonical URL, Open Graph/Twitter metadata, Product JSON-LD, theme metadata and an accessible skip link/main landmark.
 - The website explicitly keeps hardware contact separate from ECU software-pack purchasing.
 - Added `scripts/validate-site.mjs` to verify required metadata, accessibility anchors, structured data and image assets.
+- Added FAQ, privacy and terms sections with accessible anchors and footer navigation. These sections do not duplicate App licensing logic; final legal text requires business/legal review before publication.

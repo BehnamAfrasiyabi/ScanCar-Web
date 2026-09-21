@@ -18,6 +18,10 @@ const required = [
   ['main landmark', /<main\b[^>]*id="main-content"/],
   ['skip link', /href="#main-content"/],
   ['contact target', /id="contact"/],
+  ['FAQ section', /id="faq"/],
+  ['privacy section', /id="privacy"/],
+  ['terms section', /id="terms"/],
+  ['legal navigation', /aria-label="پیوندهای حقوقی"/],
 ];
 
 for (const [name, pattern] of required) {
