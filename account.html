@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حساب کاربری | ScanCar</title>
+  <meta name="robots" content="noindex" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#000; --card:#111; --text:#fff; --muted:#a0a0a0; --accent:#ff2d2d;
+      --border:#222; --ok:#00c853;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:900px;margin:0 auto;padding:20px 16px 64px}
+    header{
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+      padding:12px 0 20px;border-bottom:1px solid var(--border);margin-bottom:24px;
+    }
+    .logo{font-weight:800;font-size:20px;color:#fff}
+    .logo span{color:var(--accent)}
+    nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:14px}
+    nav a{color:var(--muted)}
+    nav a:hover{color:#fff}
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:16px;
+      padding:20px;margin-bottom:16px;
+    }
+    h1{font-size:1.4rem;margin-bottom:4px}
+    h2{font-size:1.05rem;margin-bottom:12px}
+    .muted{color:var(--muted);font-size:0.9rem}
+    label{display:block;font-size:0.85rem;color:var(--muted);margin:10px 0 4px}
+    input{
+      width:100%;max-width:360px;padding:11px 14px;border-radius:10px;
+      border:1px solid var(--border);background:#0a0a0a;color:#fff;font-family:inherit;
+    }
+    button{
+      padding:10px 18px;border-radius:999px;border:none;font-family:inherit;
+      font-weight:700;font-size:14px;cursor:pointer;
+      background:linear-gradient(135deg,#ff4d4d,#cc0000);color:#fff;margin-top:12px;
+    }
+    button.ghost{
+      background:transparent;border:1px solid var(--border);color:#fff;
+    }
+    .msg{padding:10px 12px;border-radius:10px;margin:10px 0;font-size:0.88rem;display:none}
+    .msg.show{display:block}
+    .msg.ok{background:rgba(0,200,83,0.12);border:1px solid var(--ok)}
+    .msg.err{background:rgba(255,45,45,0.12);border:1px solid var(--accent)}
+    table{width:100%;border-collapse:collapse;font-size:0.9rem}
+    th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--border)}
+    th{color:var(--muted);font-weight:600}
+    .badge{
+      display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;
+      border:1px solid var(--border);color:var(--muted);
+    }
+    .badge.paid{border-color:var(--ok);color:var(--ok)}
+    .badge.pending{border-color:#ffc107;color:#ffc107}
+    .empty{color:var(--muted);padding:12px 0}
+    .addr{padding:12px 0;border-bottom:1px solid var(--border)}
+    .addr:last-child{border-bottom:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="logo" href="index.html">SCAN<span>CAR</span></a>
+      <nav>
+        <a href="shop.html">خرید دستگاه</a>
+        <a href="index.html">صفحه اصلی</a>
+        <button type="button" class="ghost" id="btnLogout" style="margin:0">خروج</button>
+      </nav>
+    </header>
+
+    <div id="alert" class="msg"></div>
+
+    <section class="card">
+      <h1>حساب کاربری من</h1>
+      <p class="muted" id="welcome">در حال بارگذاری…</p>
+    </section>
+
+    <section class="card">
+      <h2>پروفایل</h2>
+      <p class="muted">شماره موبایل قابل تغییر نیست؛ نام را می‌توانید ویرایش کنید.</p>
+      <label>شماره موبایل</label>
+      <input id="phone" type="text" disabled />
+      <label>نام و نام خانوادگی</label>
+      <input id="name" type="text" maxlength="80" placeholder="نام شما" />
+      <div>
+        <button type="button" id="btnSaveProfile">ذخیره پروفایل</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>سفارش‌های سخت‌افزار</h2>
+      <div id="ordersBox" class="empty">در حال بارگذاری…</div>
+    </section>
+
+    <section class="card">
+      <h2>آدرس‌های ذخیره‌شده</h2>
+      <div id="addrBox" class="empty">در حال بارگذاری…</div>
+      <a href="shop.html" style="display:inline-block;margin-top:12px">سفارش جدید از فروشگاه →</a>
+    </section>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    (function () {
+      function alert(msg, ok) {
+        const el = document.getElementById('alert');
+        el.className = 'msg show ' + (ok ? 'ok' : 'err');
+        el.textContent = msg;
+      }
+
+      function money(n) {
+        return Number(n || 0).toLocaleString('fa-IR') + ' ریال';
+      }
+
+      function statusLabel(s) {
+        const map = {
+          pending: 'در انتظار پرداخت',
+          paid: 'پرداخت‌شده',
+          cancelled: 'لغو',
+          refunded: 'استرداد',
+          failed: 'ناموفق',
+        };
+        return map[s] || s || '—';
+      }
+
+      function fulfillLabel(s) {
+        const map = {
+          awaiting_payment: 'منتظر پرداخت',
+          awaiting_shipment: 'آماده ارسال',
+          shipped: 'ارسال‌شده',
+          delivered: 'تحویل‌شده',
+          cancelled: 'لغو',
+        };
+        return map[s] || s || '—';
+      }
+
+      async function boot() {
+        const user = await ScanCarAuth.requireAuth('login.html');
+        if (!user) return;
+
+        document.getElementById('welcome').textContent =
+          'خوش آمدید' + (user.name ? '، ' + user.name : '') + ' — ' + (user.phone || '');
+        document.getElementById('phone').value = user.phone || '';
+        document.getElementById('name').value = user.name || '';
+
+        try {
+          const data = await ScanCarAuth.api('/api/web/orders');
+          const orders = data.orders || [];
+          const box = document.getElementById('ordersBox');
+          if (!orders.length) {
+            box.innerHTML = '<p class="empty">هنوز سفارشی ثبت نکرده‌اید.</p>';
+          } else {
+            box.innerHTML =
+              '<table><thead><tr><th>کد</th><th>وضعیت</th><th>ارسال</th><th>مبلغ</th><th>تاریخ</th></tr></thead><tbody>' +
+              orders
+                .map(function (o) {
+                  const cls = o.status === 'paid' ? 'paid' : o.status === 'pending' ? 'pending' : '';
+                  return (
+                    '<tr>' +
+                    '<td>' +
+                    (o.tracking_code || '') +
+                    '</td>' +
+                    '<td><span class="badge ' +
+                    cls +
+                    '">' +
+                    statusLabel(o.status) +
+                    '</span></td>' +
+                    '<td>' +
+                    fulfillLabel(o.fulfillment_status) +
+                    '</td>' +
+                    '<td>' +
+                    money(o.total) +
+                    '</td>' +
+                    '<td class="muted">' +
+                    (o.created_at || o.paid_at || '—') +
+                    '</td>' +
+                    '</tr>'
+                  );
+                })
+                .join('') +
+              '</tbody></table>';
+          }
+        } catch (e) {
+          document.getElementById('ordersBox').innerHTML =
+            '<p class="empty">خطا در دریافت سفارش‌ها: ' + e.message + '</p>';
+        }
+
+        try {
+          const data = await ScanCarAuth.api('/api/web/addresses');
+          const list = data.addresses || [];
+          const box = document.getElementById('addrBox');
+          if (!list.length) {
+            box.innerHTML = '<p class="empty">آدرسی ذخیره نشده. هنگام خرید می‌توانید آدرس را ذخیره کنید.</p>';
+          } else {
+            box.innerHTML = list
+              .map(function (a) {
+                return (
+                  '<div class="addr">' +
+                  '<strong>' +
+                  (a.recipient_name || '') +
+                  '</strong> — ' +
+                  (a.recipient_phone || '') +
+                  '<br /><span class="muted">' +
+                  (a.province || '') +
+                  '، ' +
+                  (a.city || '') +
+                  ' — ' +
+                  (a.address_line || '') +
+                  (a.postal_code ? ' | کدپستی ' + a.postal_code : '') +
+                  '</span></div>'
+                );
+              })
+              .join('');
+          }
+        } catch (e) {
+          document.getElementById('addrBox').innerHTML =
+            '<p class="empty">خطا در دریافت آدرس‌ها: ' + e.message + '</p>';
+        }
+      }
+
+      document.getElementById('btnSaveProfile').onclick = async function () {
+        try {
+          const name = document.getElementById('name').value.trim();
+          const data = await ScanCarAuth.updateProfile({ name: name });
+          document.getElementById('welcome').textContent =
+            'خوش آمدید' + (data.name ? '، ' + data.name : '') + ' — ' + (data.phone || '');
+          alert('پروفایل ذخیره شد', true);
+        } catch (e) {
+          alert(e.message, false);
+        }
+      };
+
+      document.getElementById('btnLogout').onclick = async function () {
+        await ScanCarAuth.logout();
+        location.href = 'login.html';
+      };
+
+      boot();
+    })();
+  </script>
+</body>
+</html>
