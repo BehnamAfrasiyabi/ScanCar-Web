@@ -5,33 +5,33 @@
 ## Product boundary
 
 - Sell and introduce the physical ScanCar device.
-- Marketing, product information, hardware order registration and future hardware payment.
+- Marketing, product information, hardware order registration and hardware payment.
 - ECU software packs are purchased inside ScanCar-App and managed by ScanCar-Admin.
 
 ## Phase WEB-A — Public product experience
 
 | ID | Task | Status |
 |---|---|---|
-| WEB-A01 | Project scaffold/build | done (static site validation) |
+| WEB-A01 | Project scaffold/build | done |
 | WEB-A02 | Brand/logo/product assets | done |
 | WEB-A03 | Responsive landing page | done |
-| WEB-A04 | Product specification section | done (feature/value sections) |
+| WEB-A04 | Product specification section | done |
 | WEB-A05 | How ScanCar works | done |
 | WEB-A06 | Offline-first/security/value proposition | done |
-| WEB-A07 | FAQ | done (static product FAQ) |
-| WEB-A08 | Contact/support | done (email contact CTA) |
+| WEB-A07 | FAQ | done |
+| WEB-A08 | Contact/support | done |
 
 ## Phase WEB-B — Hardware commerce
 
 | ID | Task | Status |
 |---|---|---|
-| WEB-B01 | Hardware product catalog | todo |
-| WEB-B02 | Hardware order form | todo |
-| WEB-B03 | Customer contact/address validation | todo |
-| WEB-B04 | Payment abstraction | todo |
-| WEB-B05 | Payment callback/idempotency | todo |
-| WEB-B06 | Order tracking | todo |
-| WEB-B07 | Admin order integration | todo |
+| WEB-B01 | Hardware product catalog | done (Admin `type=hardware` + `/api/web/hardware-products`) |
+| WEB-B02 | Hardware order form | done (`shop.html`) |
+| WEB-B03 | Customer contact/address validation | done |
+| WEB-B04 | Payment abstraction | done (mock + `/pay` gateway path) |
+| WEB-B05 | Payment callback/idempotency | partial (reuses Admin payment providers) |
+| WEB-B06 | Order tracking | done (API + summary on shop) |
+| WEB-B07 | Admin order integration | done (`channel=web_hardware`, fulfillment_status) |
 
 ## Phase WEB-C — SEO and trust
 
@@ -42,37 +42,25 @@
 | WEB-C03 | Structured product data | done |
 | WEB-C04 | Performance optimization | todo |
 | WEB-C05 | Accessibility audit | todo |
-| WEB-C06 | Legal/privacy/terms pages | done (initial static policy sections; legal review remains before launch) |
+| WEB-C06 | Legal/privacy/terms pages | done (initial) |
 
 ## Phase WEB-D — Production hardening
 
 | ID | Task | Status |
 |---|---|---|
-| WEB-D01 | Production environment config | todo |
+| WEB-D01 | Production environment config | todo (CORS + API URL) |
 | WEB-D02 | Secure headers/CSP | todo |
 | WEB-D03 | Error/analytics strategy | todo |
 | WEB-D04 | E2E checkout tests | todo |
 | WEB-D05 | Deployment/rollback checklist | todo |
 
-## Definition of Done
+## Checkpoint — 2026-09-23
 
-Responsive, accessible, SEO-ready, secure and connected to the real hardware order backend. No software entitlement or ECU purchase logic is duplicated here.
-
-## Current checkpoint — 2026-09-18
-
-Repository responsibility is documented. Product visual/asset work is the immediate website track; hardware checkout remains future work.
-
-## Local integration checkpoint — 2026-09-19
-
-No website/backend integration was changed in this checkpoint. The public site remains a static hardware landing page; software-pack licensing stays isolated in ScanCar-App and ScanCar-Admin as designed.
+- Added `shop.html`: OTP account, shipping address, shipping method, mock/real pay.
+- Backend: `WebShopController`, migration shipping fields, `HardwareProductSeeder` (SKU `HW-SCARDIAG`).
+- Docs: ScanCar-Admin `docs/HARDWARE_WEB_SHOP.md`.
+- Link from landing CTA should point to `shop.html`.
 
 ## Continuity rule
 
 Keep hardware commerce isolated from ECU licensing. Update this file after every meaningful implementation milestone.
-## Public landing checkpoint — 2026-09-20
-
-- Restored the intended landing-page sections: product value, usage flow and hardware contact CTA.
-- Added canonical URL, Open Graph/Twitter metadata, Product JSON-LD, theme metadata and an accessible skip link/main landmark.
-- The website explicitly keeps hardware contact separate from ECU software-pack purchasing.
-- Added `scripts/validate-site.mjs` to verify required metadata, accessibility anchors, structured data and image assets.
-- Added FAQ, privacy and terms sections with accessible anchors and footer navigation. These sections do not duplicate App licensing logic; final legal text requires business/legal review before publication.
