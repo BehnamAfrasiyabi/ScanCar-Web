@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>خرید دستگاه ScanCar | فروشگاه سخت‌افزار</title>
+  <meta name="description" content="خرید دستگاه فیزیکی تشخیص عیب ScanCar با ارسال به سراسر ایران" />
+  <link rel="canonical" href="https://scancar.ir/shop.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#000; --card:#111; --text:#fff; --muted:#a0a0a0; --accent:#ff2d2d;
+      --border:#222; --ok:#00c853;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:960px;margin:0 auto;padding:24px 16px 80px}
+    header{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:28px}
+    header .logo{font-weight:800;font-size:20px}
+    header .logo span{color:var(--accent)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+    h1{font-size:1.6rem;margin-bottom:8px}
+    h2{font-size:1.15rem;margin-bottom:12px}
+    .muted{color:var(--muted);font-size:0.9rem}
+    .price{font-size:1.4rem;font-weight:800;color:var(--accent)}
+    label{display:block;font-size:0.85rem;color:var(--muted);margin:10px 0 4px}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#0a0a0a;color:#fff;font-family:inherit;font-size:15px}
+    textarea{min-height:80px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:640px){.row{grid-template-columns:1fr}}
+    button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;border:none;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;background:linear-gradient(135deg,#ff4d4d,#cc0000);color:#fff}
+    button.secondary{background:transparent;border:1px solid var(--border);color:#fff}
+    button:disabled{opacity:0.5;cursor:not-allowed}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .msg{padding:12px;border-radius:10px;margin:12px 0;font-size:0.9rem}
+    .msg.err{background:rgba(255,45,45,0.12);border:1px solid var(--accent)}
+    .msg.ok{background:rgba(0,200,83,0.12);border:1px solid var(--ok)}
+    .hidden{display:none!important}
+    .steps{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    .steps span{padding:6px 12px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
+    .steps span.on{border-color:var(--accent);color:#fff;background:rgba(255,45,45,0.15)}
+    .product-title{font-size:1.25rem;font-weight:700}
+    .cfg{font-size:12px;color:var(--muted);margin-top:24px;word-break:break-all}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="logo" href="index.html">SCAN<span>CAR</span></a>
+      <div class="muted" id="userBadge">مهمان</div>
+    </header>
+
+    <div class="steps">
+      <span id="s1" class="on">۱. محصول</span>
+      <span id="s2">۲. ورود</span>
+      <span id="s3">۳. آدرس و ارسال</span>
+      <span id="s4">۴. پرداخت</span>
+    </div>
+
+    <div id="alert" class="msg hidden"></div>
+
+    <!-- Product -->
+    <section id="stepProduct" class="card">
+      <h1>خرید دستگاه فیزیکی</h1>
+      <p class="muted" style="margin-bottom:16px">پک‌های نرم‌افزاری ECU از داخل اپلیکیشن خریداری می‌شوند؛ اینجا فقط سخت‌افزار ارسال می‌شود.</p>
+      <div id="productBox">
+        <p class="muted">در حال بارگذاری کاتالوگ…</p>
+      </div>
+      <div class="actions">
+        <button type="button" id="btnBuy">ادامه خرید</button>
+        <a class="btn secondary" href="index.html" style="background:transparent;border:1px solid var(--border)">بازگشت</a>
+      </div>
+    </section>
+
+    <!-- Auth OTP -->
+    <section id="stepAuth" class="card hidden">
+      <h2>ورود / ثبت‌نام با موبایل</h2>
+      <p class="muted">کد یک‌بارمصرف به شماره شما ارسال می‌شود (در حالت آزمایشی در لاگ سرور).</p>
+      <label>شماره موبایل</label>
+      <input id="phone" type="tel" placeholder="09xxxxxxxxx" maxlength="11" />
+      <label class="otpField hidden">کد تأیید</label>
+      <input id="otp" class="otpField hidden" type="text" placeholder="کد ۶ رقمی" maxlength="8" />
+      <div class="actions">
+        <button type="button" id="btnOtpRequest">دریافت کد</button>
+        <button type="button" id="btnOtpVerify" class="otpField hidden">تأیید و ادامه</button>
+      </div>
+    </section>
+
+    <!-- Shipping -->
+    <section id="stepShip" class="card hidden">
+      <h2>مشخصات گیرنده و آدرس</h2>
+      <div class="row">
+        <div>
+          <label>نام و نام خانوادگی</label>
+          <input id="recipient_name" required />
+        </div>
+        <div>
+          <label>موبایل گیرنده</label>
+          <input id="recipient_phone" type="tel" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>استان</label>
+          <input id="province" />
+        </div>
+        <div>
+          <label>شهر</label>
+          <input id="city" />
+        </div>
+      </div>
+      <label>کد پستی</label>
+      <input id="postal_code" />
+      <label>آدرس کامل</label>
+      <textarea id="address_line" placeholder="خیابان، پلاک، واحد"></textarea>
+      <label>روش ارسال</label>
+      <select id="shipping_method"></select>
+      <label>یادداشت (اختیاری)</label>
+      <textarea id="customer_note"></textarea>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:12px">
+        <input type="checkbox" id="save_address" checked style="width:auto" />
+        ذخیره آدرس برای خریدهای بعدی
+      </label>
+      <div class="actions">
+        <button type="button" id="btnPlaceOrder">ثبت سفارش و پرداخت</button>
+      </div>
+    </section>
+
+    <!-- Pay / result -->
+    <section id="stepPay" class="card hidden">
+      <h2>پرداخت</h2>
+      <div id="paySummary" class="muted"></div>
+      <div class="actions">
+        <button type="button" id="btnMockPay">پرداخت آزمایشی (Lab)</button>
+        <button type="button" id="btnRealPay" class="secondary">رفتن به درگاه</button>
+      </div>
+      <div id="orderDone" class="hidden" style="margin-top:16px">
+        <p class="msg ok">سفارش شما ثبت و پرداخت شد. وضعیت ارسال را از پنل ادمین یا همین صفحه پیگیری کنید.</p>
+        <div id="doneDetail" class="muted"></div>
+      </div>
+    </section>
+
+    <p class="cfg">API: <span id="apiLabel"></span> — برای لوکال در localStorage کلید <code>SCANCAR_API</code> را تنظیم کنید.</p>
+  </div>
+
+  <script>
+    // Backend base URL (no trailing slash). Override: localStorage.setItem('SCANCAR_API','http://127.0.0.1:8000')
+    const API = (localStorage.getItem('SCANCAR_API') || 'http://127.0.0.1:8000').replace(/\/$/, '');
+    document.getElementById('apiLabel').textContent = API;
+
+    const TOKEN_KEY = 'scancar.webToken';
+    let selectedSku = null;
+    let selectedProduct = null;
+    let currentTracking = null;
+
+    function token() { return localStorage.getItem(TOKEN_KEY) || ''; }
+    function setToken(t) {
+      if (t) localStorage.setItem(TOKEN_KEY, t);
+      else localStorage.removeItem(TOKEN_KEY);
+    }
+
+    function showAlert(text, ok) {
+      const el = document.getElementById('alert');
+      el.className = 'msg ' + (ok ? 'ok' : 'err');
+      el.textContent = text;
+      el.classList.remove('hidden');
+    }
+
+    function setStep(n) {
+      ['s1','s2','s3','s4'].forEach((id,i) => {
+        document.getElementById(id).classList.toggle('on', i + 1 === n);
+      });
+      document.getElementById('stepProduct').classList.toggle('hidden', n !== 1);
+      document.getElementById('stepAuth').classList.toggle('hidden', n !== 2);
+      document.getElementById('stepShip').classList.toggle('hidden', n !== 3);
+      document.getElementById('stepPay').classList.toggle('hidden', n !== 4);
+    }
+
+    async function api(path, opts = {}) {
+      const headers = Object.assign({ 'Content-Type': 'application/json', 'Accept': 'application/json' }, opts.headers || {});
+      if (token()) headers.Authorization = 'Bearer ' + token();
+      const res = await fetch(API + path, Object.assign({}, opts, { headers }));
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.ok === false) {
+        const err = new Error(body.message || body.error || ('HTTP ' + res.status));
+        err.code = body.error;
+        throw err;
+      }
+      return body.data !== undefined ? body.data : body;
+    }
+
+    async function loadProducts() {
+      const data = await api('/api/web/hardware-products');
+      const list = data.products || [];
+      const box = document.getElementById('productBox');
+      if (!list.length) {
+        box.innerHTML = '<p class="muted">محصول سخت‌افزاری فعالی نیست. در Admin: php artisan db:seed --class=HardwareProductSeeder</p>';
+        return;
+      }
+      selectedProduct = list[0];
+      selectedSku = selectedProduct.sku;
+      box.innerHTML = list.map(p => `
+        <div style="margin-bottom:12px">
+          <div class="product-title">${escapeHtml(p.title)}</div>
+          <p class="muted">${escapeHtml(p.description || '')}</p>
+          <div class="price">${Number(p.price).toLocaleString('fa-IR')} ریال</div>
+          <p class="muted">SKU: ${escapeHtml(p.sku)}</p>
+        </div>`).join('');
+    }
+
+    async function loadShipping() {
+      const data = await api('/api/web/shipping-methods');
+      const sel = document.getElementById('shipping_method');
+      sel.innerHTML = (data.methods || []).map(m =>
+        `<option value="${m.id}">${escapeHtml(m.title)} — ${Number(m.fee).toLocaleString('fa-IR')} ریال</option>`
+      ).join('');
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, c => ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]));
+    }
+
+    document.getElementById('btnBuy').onclick = async () => {
+      if (!selectedSku) return showAlert('محصولی انتخاب نشده', false);
+      if (token()) {
+        try {
+          const me = await api('/api/auth/me');
+          document.getElementById('userBadge').textContent = me.phone || 'کاربر';
+          document.getElementById('recipient_phone').value = me.phone || '';
+          setStep(3);
+          await loadShipping();
+          return;
+        } catch (_) { setToken(null); }
+      }
+      setStep(2);
+    };
+
+    document.getElementById('btnOtpRequest').onclick = async () => {
+      try {
+        const phone = document.getElementById('phone').value.trim();
+        await api('/api/auth/otp/request', { method: 'POST', body: JSON.stringify({ phone }) });
+        document.querySelectorAll('.otpField').forEach(el => el.classList.remove('hidden'));
+        showAlert('کد ارسال شد (در Lab در لاگ سرور ببینید).', true);
+      } catch (e) { showAlert(e.message, false); }
+    };
+
+    document.getElementById('btnOtpVerify').onclick = async () => {
+      try {
+        const phone = document.getElementById('phone').value.trim();
+        const code = document.getElementById('otp').value.trim();
+        const data = await api('/api/auth/otp/verify', { method: 'POST', body: JSON.stringify({ phone, code }) });
+        setToken(data.token);
+        document.getElementById('userBadge').textContent = phone;
+        document.getElementById('recipient_phone').value = phone;
+        setStep(3);
+        await loadShipping();
+        showAlert('ورود موفق', true);
+      } catch (e) { showAlert(e.message, false); }
+    };
+
+    document.getElementById('btnPlaceOrder').onclick = async () => {
+      try {
+        const payload = {
+          items: [{ product_sku: selectedSku, qty: 1 }],
+          recipient_name: document.getElementById('recipient_name').value.trim(),
+          recipient_phone: document.getElementById('recipient_phone').value.trim(),
+          province: document.getElementById('province').value.trim(),
+          city: document.getElementById('city').value.trim(),
+          postal_code: document.getElementById('postal_code').value.trim(),
+          address_line: document.getElementById('address_line').value.trim(),
+          shipping_method: document.getElementById('shipping_method').value,
+          customer_note: document.getElementById('customer_note').value.trim(),
+          save_address: document.getElementById('save_address').checked,
+        };
+        const data = await api('/api/web/orders', { method: 'POST', body: JSON.stringify(payload) });
+        currentTracking = data.tracking_code;
+        document.getElementById('paySummary').innerHTML =
+          `کد پیگیری: <b>${escapeHtml(data.tracking_code)}</b><br>` +
+          `جمع کالا: ${Number(data.subtotal).toLocaleString('fa-IR')} — ارسال: ${Number(data.shipping_fee).toLocaleString('fa-IR')}<br>` +
+          `<span class="price">مبلغ قابل پرداخت: ${Number(data.total).toLocaleString('fa-IR')} ریال</span>`;
+        setStep(4);
+        showAlert('سفارش ثبت شد؛ پرداخت را تکمیل کنید.', true);
+      } catch (e) { showAlert(e.message, false); }
+    };
+
+    document.getElementById('btnMockPay').onclick = async () => {
+      if (!currentTracking) return;
+      try {
+        const data = await api('/api/web/orders/' + encodeURIComponent(currentTracking) + '/mock-pay', { method: 'POST', body: '{}' });
+        document.getElementById('orderDone').classList.remove('hidden');
+        document.getElementById('doneDetail').textContent =
+          'وضعیت ارسال: ' + (data.fulfillment_status || 'awaiting_shipment');
+        showAlert(data.message || 'پرداخت موفق', true);
+      } catch (e) { showAlert(e.message, false); }
+    };
+
+    document.getElementById('btnRealPay').onclick = async () => {
+      if (!currentTracking) return;
+      try {
+        const data = await api('/api/web/orders/' + encodeURIComponent(currentTracking) + '/pay', { method: 'POST', body: '{}' });
+        if (data.payment_url) {
+          window.location.href = data.payment_url;
+        } else {
+          showAlert(data.message || 'لینک درگاه در دسترس نیست (حالت mock).', false);
+        }
+      } catch (e) { showAlert(e.message, false); }
+    };
+
+    loadProducts().catch(e => showAlert('خطا در بارگذاری: ' + e.message + ' — آیا Backend روشن است؟', false));
+  </script>
+</body>
+</html>
