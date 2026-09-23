@@ -60,6 +60,21 @@
     .empty{color:var(--muted);padding:12px 0}
     .addr{padding:12px 0;border-bottom:1px solid var(--border)}
     .addr:last-child{border-bottom:none}
+    /* order detail + shipment timeline */
+    .oc{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+    .oc .head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+    .oc .code{font-weight:800;font-size:1.02rem}
+    .timeline{display:flex;gap:6px;margin:10px 0 4px}
+    .timeline .st{flex:1;text-align:center;font-size:11px;color:var(--muted);position:relative;padding-top:14px}
+    .timeline .st::before{content:'';position:absolute;top:0;right:0;left:0;height:4px;border-radius:4px;background:var(--border)}
+    .timeline .st.done{color:var(--ok)}
+    .timeline .st.done::before{background:var(--ok)}
+    .timeline .st.now{color:#fff;font-weight:700}
+    .timeline .st.now::before{background:linear-gradient(90deg,var(--accent),#ff8d8d)}
+    .postal{display:flex;align-items:center;gap:10px;background:#0a0a0a;border:1px dashed var(--warn);border-radius:10px;padding:10px 12px;margin-top:10px;flex-wrap:wrap}
+    .postal .lbl{font-size:12px;color:var(--muted)}
+    .postal .num{font-weight:800;font-size:1.05rem;letter-spacing:1px;color:var(--warn)}
+    .postal button{margin:0;padding:6px 14px;font-size:12px;background:transparent;border:1px solid var(--border);color:var(--text);border-radius:8px}
   </style>
 </head>
 <body>
@@ -139,6 +154,24 @@
         return map[s] || s || '—';
       }
 
+      const SHIP_STEPS = ['awaiting_payment', 'awaiting_shipment', 'shipped', 'delivered'];
+      function timelineHtml(fs) {
+        const idx = SHIP_STEPS.indexOf(fs);
+        if (fs === 'cancelled') {
+          return '<div class="timeline"><span class="st now">سفارش لغو شده</span></div>';
+        }
+        if (idx < 0) return '';
+        return '<div class="timeline">' + SHIP_STEPS.map(function (s, i) {
+          const cls = i < idx ? 'done' : (i === idx ? 'now' : '');
+          return '<span class="st ' + cls + '">' + fulfillLabel(s) + '</span>';
+        }).join('') + '</div>';
+      }
+
+      function itemsLabel(items) {
+        if (!items || !items.length) return '';
+        return items.map(function (it) { return it.title + (it.qty > 1 ? ' ×' + it.qty : ''); }).join('، ');
+      }
+
       async function boot() {
         const user = await ScanCarAuth.requireAuth('login.html');
         if (!user) return;
@@ -153,37 +186,47 @@
           const orders = data.orders || [];
           const box = document.getElementById('ordersBox');
           if (!orders.length) {
-            box.innerHTML = '<p class="empty">هنوز سفارشی ثبت نکرده‌اید.</p>';
+            box.innerHTML = '<p class="empty">هنوز سفارشی ثبت نکرده‌اید. <a href="shop.html">خرید دستگاه →</a></p>';
           } else {
-            box.innerHTML =
-              '<table><thead><tr><th>کد</th><th>وضعیت</th><th>ارسال</th><th>مبلغ</th><th>تاریخ</th></tr></thead><tbody>' +
-              orders
-                .map(function (o) {
-                  const cls = o.status === 'paid' ? 'paid' : o.status === 'pending' ? 'pending' : '';
-                  return (
-                    '<tr>' +
-                    '<td>' +
-                    (o.tracking_code || '') +
-                    '</td>' +
-                    '<td><span class="badge ' +
-                    cls +
-                    '">' +
-                    statusLabel(o.status) +
-                    '</span></td>' +
-                    '<td>' +
-                    fulfillLabel(o.fulfillment_status) +
-                    '</td>' +
-                    '<td>' +
-                    money(o.total) +
-                    '</td>' +
-                    '<td class="muted">' +
-                    (o.created_at || o.paid_at || '—') +
-                    '</td>' +
-                    '</tr>'
-                  );
-                })
-                .join('') +
-              '</tbody></table>';
+            // Fetch items for each order in parallel, then render cards.
+            const detailed = await Promise.all(orders.map(async function (o) {
+              try {
+                const d = await ScanCarAuth.api('/api/web/orders/' + encodeURIComponent(o.tracking_code));
+                return Object.assign({}, o, { items: d.items || [] });
+              } catch (e2) { return o; }
+            }));
+            box.innerHTML = detailed.map(function (o) {
+              const cls = o.status === 'paid' ? 'paid' : o.status === 'pending' ? 'pending' : '';
+              const postal = o.tracking_postal
+                ? '<div class="postal"><span class="lbl">کد رهگیری پستی:</span>' +
+                  '<span class="num" id="pc_' + o.tracking_code + '">' + o.tracking_postal + '</span>' +
+                  '<button type="button" data-pc="' + o.tracking_postal + '" data-code="' + o.tracking_code + '">کپی</button></div>'
+                : '';
+              return (
+                '<div class="oc">' +
+                '<div class="head"><span class="code">سفارش ' + (o.tracking_code || '') + '</span>' +
+                '<span><span class="badge ' + cls + '">' + statusLabel(o.status) + '</span> · ' +
+                money(o.total) + ' ریال</span></div>' +
+                (itemsLabel(o.items) ? '<div class="muted">' + itemsLabel(o.items) + '</div>' : '') +
+                timelineHtml(o.fulfillment_status) +
+                postal +
+                '<div class="muted" style="margin-top:8px">' + (o.city || '') + ' — ' + (o.recipient_name || '') + ' · ' + (o.created_at || '') + '</div>' +
+                '</div>'
+              );
+            }).join('');
+            // Copy buttons for postal tracking codes
+            Array.prototype.forEach.call(box.querySelectorAll('button[data-pc]'), function (b) {
+              b.onclick = function () {
+                const done = function () { b.textContent = 'کپی شد ✓'; setTimeout(function () { b.textContent = 'کپی'; }, 1500); };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                  navigator.clipboard.writeText(b.dataset.pc).then(done);
+                } else {
+                  const t = document.createElement('textarea');
+                  t.value = b.dataset.pc; document.body.appendChild(t); t.select();
+                  document.execCommand('copy'); document.body.removeChild(t); done();
+                }
+              };
+            });
           }
         } catch (e) {
           document.getElementById('ordersBox').innerHTML =

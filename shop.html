@@ -10,30 +10,33 @@
   <style>
     :root {
       --bg:#000; --card:#111; --text:#fff; --muted:#a0a0a0; --accent:#ff2d2d;
-      --border:#222; --ok:#00c853;
+      --border:#222; --ok:#00c853; --warn:#ffc107;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
     a{color:var(--accent);text-decoration:none}
-    .wrap{max-width:960px;margin:0 auto;padding:24px 16px 80px}
-    header{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:28px;gap:12px;flex-wrap:wrap}
+    .wrap{max-width:1020px;margin:0 auto;padding:24px 16px 80px}
+    header{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:24px;gap:12px;flex-wrap:wrap}
     header .logo{font-weight:800;font-size:20px;color:#fff}
     header .logo span{color:var(--accent)}
     header nav{display:flex;gap:14px;align-items:center;font-size:14px}
     header nav a{color:var(--muted)}
     header nav a:hover{color:#fff}
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
-    h1{font-size:1.6rem;margin-bottom:8px}
-    h2{font-size:1.15rem;margin-bottom:12px}
+    h1{font-size:1.55rem;margin-bottom:6px}
+    h2{font-size:1.1rem;margin-bottom:12px}
     .muted{color:var(--muted);font-size:0.9rem}
-    .price{font-size:1.4rem;font-weight:800;color:var(--accent)}
+    .price{font-size:1.35rem;font-weight:800;color:var(--accent)}
     label{display:block;font-size:0.85rem;color:var(--muted);margin:10px 0 4px}
     input,select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#0a0a0a;color:#fff;font-family:inherit;font-size:15px}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+    input.invalid,textarea.invalid{border-color:var(--accent);background:rgba(255,45,45,0.06)}
     textarea{min-height:80px;resize:vertical}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:640px){.row{grid-template-columns:1fr}}
-    button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;border:none;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;background:linear-gradient(135deg,#ff4d4d,#cc0000);color:#fff}
-    button.secondary{background:transparent;border:1px solid var(--border);color:#fff}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    @media(max-width:640px){.row,.row3{grid-template-columns:1fr}}
+    button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;border:none;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;background:linear-gradient(135deg,#ff4d4d,#cc0000);color:#fff}
+    button.secondary,.btn.secondary{background:transparent;border:1px solid var(--border);color:#fff}
     button:disabled{opacity:0.5;cursor:not-allowed}
     .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
     .msg{padding:12px;border-radius:10px;margin:12px 0;font-size:0.9rem}
@@ -41,10 +44,32 @@
     .msg.ok{background:rgba(0,200,83,0.12);border:1px solid var(--ok)}
     .hidden{display:none!important}
     .steps{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-    .steps span{padding:6px 12px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
+    .steps span{padding:6px 14px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
     .steps span.on{border-color:var(--accent);color:#fff;background:rgba(255,45,45,0.15)}
+    .steps span.done{border-color:var(--ok);color:var(--ok)}
     .product-title{font-size:1.25rem;font-weight:700}
+    /* qty stepper */
+    .qty{display:flex;align-items:center;gap:14px;margin-top:12px}
+    .qty button{width:40px;height:40px;padding:0;font-size:20px;border-radius:12px}
+    .qty .n{min-width:44px;text-align:center;font-size:1.3rem;font-weight:800}
+    /* checkout grid */
+    .grid{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;align-items:start}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}}
+    .summary{position:sticky;top:16px}
+    .summary .line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border);font-size:0.92rem}
+    .summary .total{display:flex;justify-content:space-between;padding-top:12px;font-weight:800;font-size:1.05rem}
+    .summary .total b{color:var(--accent)}
+    /* gateway options */
+    .gw{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer}
+    .gw.on{border-color:var(--accent);background:rgba(255,45,45,0.08)}
+    .gw input{width:auto;margin-top:4px}
+    .gw.dis{opacity:0.45;cursor:not-allowed}
+    .gw .t{font-weight:700;font-size:0.95rem}
+    .gw .d{font-size:0.8rem;color:var(--muted)}
+    .badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;border:1px solid var(--ok);color:var(--ok)}
     .cfg{font-size:12px;color:var(--muted);margin-top:24px;word-break:break-all}
+    .fielderr{font-size:11px;color:var(--accent);margin-top:3px;display:none}
+    .fielderr.show{display:block}
   </style>
 </head>
 <body>
@@ -60,75 +85,100 @@
 
     <div class="steps">
       <span id="s1" class="on">۱. محصول</span>
-      <span id="s2">۲. ورود</span>
-      <span id="s3">۳. آدرس و ارسال</span>
-      <span id="s4">۴. پرداخت</span>
+      <span id="s2">۲. آدرس و ارسال</span>
+      <span id="s3">۳. پرداخت</span>
     </div>
 
     <div id="alert" class="msg hidden"></div>
 
+    <!-- STEP 1: product -->
     <section id="stepProduct" class="card">
       <h1>خرید دستگاه فیزیکی</h1>
       <p class="muted" style="margin-bottom:16px">پک‌های نرم‌افزاری ECU از داخل اپلیکیشن خریداری می‌شوند؛ اینجا فقط سخت‌افزار ارسال می‌شود.</p>
       <div id="productBox"><p class="muted">در حال بارگذاری کاتالوگ…</p></div>
       <div class="actions">
         <button type="button" id="btnBuy">ادامه خرید</button>
-        <a class="btn secondary" href="index.html" style="background:transparent;border:1px solid var(--border)">بازگشت</a>
+        <a class="btn secondary" href="index.html">بازگشت</a>
       </div>
     </section>
 
-    <section id="stepShip" class="card hidden">
-      <h2>مشخصات گیرنده و آدرس</h2>
-      <div class="row">
-        <div>
-          <label>نام و نام خانوادگی</label>
-          <input id="recipient_name" required />
+    <!-- STEP 2: address + shipping (with summary sidebar) -->
+    <div id="stepShip" class="grid hidden">
+      <section class="card">
+        <h2>مشخصات گیرنده و آدرس</h2>
+        <div id="addrPick" class="hidden" style="margin-bottom:8px">
+          <label>آدرس ذخیره‌شده</label>
+          <select id="savedAddr"></select>
         </div>
-        <div>
-          <label>موبایل گیرنده</label>
-          <input id="recipient_phone" type="tel" />
+        <div class="row">
+          <div>
+            <label>نام و نام خانوادگی گیرنده *</label>
+            <input id="recipient_name" maxlength="120" />
+            <div class="fielderr" id="e_recipient_name">نام گیرنده را وارد کنید</div>
+          </div>
+          <div>
+            <label>موبایل گیرنده *</label>
+            <input id="recipient_phone" type="tel" inputmode="numeric" maxlength="11" placeholder="09xxxxxxxxx" />
+            <div class="fielderr" id="e_recipient_phone">شماره موبایل معتبر (۱۱ رقم، شروع با ۰۹) وارد کنید</div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div>
-          <label>استان</label>
-          <input id="province" />
+        <div class="row">
+          <div>
+            <label>استان *</label>
+            <input id="province" maxlength="80" />
+            <div class="fielderr" id="e_province">استان را وارد کنید</div>
+          </div>
+          <div>
+            <label>شهر *</label>
+            <input id="city" maxlength="80" />
+            <div class="fielderr" id="e_city">شهر را وارد کنید</div>
+          </div>
         </div>
-        <div>
-          <label>شهر</label>
-          <input id="city" />
+        <div class="row">
+          <div>
+            <label>کد پستی (در صورت وجود)</label>
+            <input id="postal_code" inputmode="numeric" maxlength="10" placeholder="۱۰ رقم" />
+            <div class="fielderr" id="e_postal_code">کد پستی باید ۱۰ رقم باشد</div>
+          </div>
+          <div>
+            <label>یادداشت (اختیاری)</label>
+            <input id="customer_note" maxlength="500" />
+          </div>
         </div>
-      </div>
-      <label>کد پستی</label>
-      <input id="postal_code" />
-      <label>آدرس کامل</label>
-      <textarea id="address_line" placeholder="خیابان، پلاک، واحد"></textarea>
-      <label>روش ارسال</label>
-      <select id="shipping_method"></select>
-      <label>یادداشت (اختیاری)</label>
-      <textarea id="customer_note"></textarea>
-      <label style="display:flex;align-items:center;gap:8px;margin-top:12px">
-        <input type="checkbox" id="save_address" checked style="width:auto" />
-        ذخیره آدرس برای خریدهای بعدی
-      </label>
-      <div class="actions">
-        <button type="button" id="btnPlaceOrder">ثبت سفارش و پرداخت</button>
-      </div>
-    </section>
+        <label>آدرس کامل *</label>
+        <textarea id="address_line" maxlength="500" placeholder="خیابان، پلاک، واحد"></textarea>
+        <div class="fielderr" id="e_address_line">آدرس کامل را وارد کنید</div>
+        <label>روش ارسال</label>
+        <select id="shipping_method"></select>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:12px">
+          <input type="checkbox" id="save_address" checked style="width:auto" />
+          ذخیره این آدرس برای خریدهای بعدی
+        </label>
+        <div class="actions">
+          <button type="button" id="btnPlaceOrder">ثبت سفارش و ادامه به پرداخت</button>
+          <button type="button" class="secondary" id="btnBack1">بازگشت</button>
+        </div>
+      </section>
+      <aside class="card summary" id="sumShip"></aside>
+    </div>
 
-    <section id="stepPay" class="card hidden">
-      <h2>پرداخت</h2>
-      <div id="paySummary" class="muted"></div>
-      <div class="actions">
-        <button type="button" id="btnMockPay">پرداخت آزمایشی (Lab)</button>
-        <button type="button" id="btnRealPay" class="secondary">رفتن به درگاه</button>
-      </div>
-      <div id="orderDone" class="hidden" style="margin-top:16px">
-        <p class="msg ok">سفارش شما ثبت و پرداخت شد.</p>
-        <div id="doneDetail" class="muted"></div>
-        <p style="margin-top:12px"><a href="account.html">مشاهده سفارش در حساب کاربری →</a></p>
-      </div>
-    </section>
+    <!-- STEP 3: payment -->
+    <div id="stepPay" class="grid hidden">
+      <section class="card">
+        <h2>پرداخت سفارش</h2>
+        <div id="gwBox">در حال بارگذاری روش‌های پرداخت…</div>
+        <div class="actions">
+          <button type="button" id="btnPay">پرداخت و تکمیل سفارش</button>
+          <button type="button" class="secondary" id="btnBack2">بازگشت</button>
+        </div>
+        <div id="orderDone" class="hidden" style="margin-top:16px">
+          <p class="msg ok">✅ سفارش شما ثبت و پرداخت شد.</p>
+          <div id="doneDetail" class="muted"></div>
+          <p style="margin-top:12px"><a href="account.html">پیگیری سفارش در حساب کاربری →</a></p>
+        </div>
+      </section>
+      <aside class="card summary" id="sumPay"></aside>
+    </div>
 
     <p class="cfg">API: <span id="apiLabel"></span></p>
   </div>
@@ -138,136 +188,243 @@
     const API = ScanCarAuth.apiBase();
     document.getElementById('apiLabel').textContent = API;
 
-    let selectedSku = null;
+    const $ = (id) => document.getElementById(id);
+    let product = null;      // selected product row
+    let qty = 1;
+    let shippingFee = 0;
     let currentTracking = null;
+    let payMethods = [];
+    let chosenGw = null;
+    let orderTotals = null;
 
     function showAlert(text, ok) {
-      const el = document.getElementById('alert');
+      const el = $('alert');
       el.className = 'msg ' + (ok ? 'ok' : 'err');
       el.textContent = text;
       el.classList.remove('hidden');
+      if (!ok) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+    function clearAlert() { $('alert').classList.add('hidden'); }
 
-    function setStep(n) {
-      // 1 product, 3 ship, 4 pay (login is separate page)
-      document.getElementById('s1').classList.toggle('on', n === 1);
-      document.getElementById('s2').classList.toggle('on', n === 2);
-      document.getElementById('s3').classList.toggle('on', n === 3);
-      document.getElementById('s4').classList.toggle('on', n === 4);
-      document.getElementById('stepProduct').classList.toggle('hidden', n !== 1);
-      document.getElementById('stepShip').classList.toggle('hidden', n !== 3);
-      document.getElementById('stepPay').classList.toggle('hidden', n !== 4);
-    }
+    function money(n) { return Number(n || 0).toLocaleString('fa-IR'); }
 
     function escapeHtml(s) {
       return String(s || '').replace(/[&<>"']/g, function (c) {
-        return ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]);
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);
       });
     }
 
+    function setStep(n) {
+      $('s1').classList.toggle('on', n === 1); $('s1').classList.toggle('done', n > 1);
+      $('s2').classList.toggle('on', n === 2); $('s2').classList.toggle('done', n > 2);
+      $('s3').classList.toggle('on', n === 3);
+      $('stepProduct').classList.toggle('hidden', n !== 1);
+      $('stepShip').classList.toggle('hidden', n !== 2);
+      $('stepPay').classList.toggle('hidden', n !== 3);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ---------- STEP 1: product + qty ---------- */
     async function loadProducts() {
       const data = await ScanCarAuth.api('/api/web/hardware-products');
       const list = data.products || [];
-      const box = document.getElementById('productBox');
       if (!list.length) {
-        box.innerHTML = '<p class="muted">محصول سخت‌افزاری فعالی نیست.</p>';
+        $('productBox').innerHTML = '<p class="muted">محصول سخت‌افزاری فعالی نیست.</p>';
         return;
       }
-      selectedSku = list[0].sku;
-      box.innerHTML = list.map(function (p) {
-        return '<div style="margin-bottom:12px"><div class="product-title">' + escapeHtml(p.title) +
-          '</div><p class="muted">' + escapeHtml(p.description || '') +
-          '</p><div class="price">' + Number(p.price).toLocaleString('fa-IR') + ' ریال</div></div>';
-      }).join('');
+      product = list[0];
+      qty = 1;
+      $('productBox').innerHTML =
+        '<div class="product-title">' + escapeHtml(product.title) + '</div>' +
+        '<p class="muted">' + escapeHtml(product.description || '') + '</p>' +
+        '<div class="price">' + money(product.price) + ' ریال</div>' +
+        '<div class="qty">' +
+        '<button type="button" id="qMinus">−</button>' +
+        '<span class="n" id="qNum">۱</span>' +
+        '<button type="button" id="qPlus">+</button>' +
+        '<span class="muted">تعداد</span>' +
+        '</div>';
+      $('qPlus').onclick = function () { if (qty < 10) { qty++; renderQty(); } };
+      $('qMinus').onclick = function () { if (qty > 1) { qty--; renderQty(); } };
+    }
+    const FA = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰'];
+    function renderQty() {
+      $('qNum').textContent = FA[qty];
+      $('qMinus').disabled = qty <= 1;
+      $('qPlus').disabled = qty >= 10;
     }
 
+    /* ---------- STEP 2: shipping ---------- */
     async function loadShipping() {
       const data = await ScanCarAuth.api('/api/web/shipping-methods');
-      const sel = document.getElementById('shipping_method');
-      sel.innerHTML = (data.methods || []).map(function (m) {
-        return '<option value="' + m.id + '">' + escapeHtml(m.title) + ' — ' +
-          Number(m.fee).toLocaleString('fa-IR') + ' ریال</option>';
+      const sel = $('shipping_method');
+      const methods = data.methods || [];
+      shippingFee = methods.length ? methods[0].fee : 0;
+      sel.innerHTML = methods.map(function (m, i) {
+        if (i === 0) shippingFee = m.fee;
+        return '<option value="' + m.id + '" data-fee="' + m.fee + '">' + escapeHtml(m.title) + ' — ' + money(m.fee) + ' ریال</option>';
       }).join('');
+      sel.onchange = function () {
+        shippingFee = Number(sel.options[sel.selectedIndex].dataset.fee || 0);
+        renderSummaries();
+      };
     }
 
-    // Header auth state
-    if (ScanCarAuth.getToken()) {
-      ScanCarAuth.me().then(function (u) {
-        var a = document.getElementById('navAuth');
-        a.href = 'account.html';
-        a.textContent = (u && u.name) ? u.name : (u.phone || 'حساب من');
-      }).catch(function () { ScanCarAuth.setToken(null); });
-    }
-
-    document.getElementById('btnBuy').onclick = async function () {
-      if (!selectedSku) return showAlert('محصولی انتخاب نشده', false);
-      if (!ScanCarAuth.getToken()) {
-        location.href = 'login.html?next=shop.html';
-        return;
-      }
+    async function loadPrefill() {
       try {
-        const me = await ScanCarAuth.me();
-        document.getElementById('recipient_phone').value = me.phone || '';
-        if (me.name) document.getElementById('recipient_name').value = me.name;
-        setStep(3);
+        const data = await ScanCarAuth.api('/api/web/address-prefill');
+        if (data.prefill) {
+          $('recipient_name').value = data.prefill.recipient_name || '';
+          $('recipient_phone').value = data.prefill.recipient_phone || '';
+          $('province').value = data.prefill.province || '';
+          $('city').value = data.prefill.city || '';
+          $('postal_code').value = data.prefill.postal_code || '';
+          $('address_line').value = data.prefill.address_line || '';
+        }
+      } catch (e) { /* prefill is optional */ }
+    }
+
+    const digits = (s) => String(s || '').replace(/\D+/g, '');
+    function validateShip() {
+      let ok = true;
+      function mark(inputId, errId, bad) {
+        $(inputId).classList.toggle('invalid', bad);
+        $(errId).classList.toggle('show', bad);
+        if (bad) ok = false;
+      }
+      mark('recipient_name', 'e_recipient_name', $('recipient_name').value.trim().length < 3);
+      mark('recipient_phone', 'e_recipient_phone', !/^09\d{9}$/.test(digits($('recipient_phone').value)));
+      mark('province', 'e_province', $('province').value.trim() === '');
+      mark('city', 'e_city', $('city').value.trim() === '');
+      mark('address_line', 'e_address_line', $('address_line').value.trim().length < 10);
+      const pc = digits($('postal_code').value);
+      mark('postal_code', 'e_postal_code', pc !== '' && pc.length !== 10);
+      return ok;
+    }
+
+    function summaryHtml() {
+      const sub = product ? product.price * qty : 0;
+      const total = sub + shippingFee;
+      return '<h2>خلاصه سفارش</h2>' +
+        '<div class="line"><span>' + escapeHtml(product ? product.title : '') + '</span><span>× ' + FA[qty] + '</span></div>' +
+        '<div class="line"><span>قیمت واحد</span><span>' + money(product ? product.price : 0) + '</span></div>' +
+        '<div class="line"><span>جمع کالاها</span><span>' + money(sub) + '</span></div>' +
+        '<div class="line"><span>هزینه ارسال</span><span>' + money(shippingFee) + '</span></div>' +
+        '<div class="total"><span>قابل پرداخت</span><b>' + money(total) + ' ریال</b></div>';
+    }
+    function renderSummaries() {
+      $('sumShip').innerHTML = summaryHtml();
+      $('sumPay').innerHTML = summaryHtml();
+    }
+
+    $('btnBuy').onclick = async function () {
+      if (!product) return showAlert('محصولی انتخاب نشده', false);
+      if (!ScanCarAuth.getToken()) { location.href = 'login.html?next=shop.html'; return; }
+      try {
+        await ScanCarAuth.me();
+        setStep(2);
+        renderSummaries();
         await loadShipping();
+        await loadPrefill();
       } catch (e) {
         ScanCarAuth.setToken(null);
         location.href = 'login.html?next=shop.html';
       }
     };
+    $('btnBack1').onclick = function () { setStep(1); };
 
-    document.getElementById('btnPlaceOrder').onclick = async function () {
+    $('btnPlaceOrder').onclick = async function () {
+      clearAlert();
+      if (!validateShip()) { showAlert('لطفاً خطاهای فرم را برطرف کنید.', false); return; }
+      const btn = this; btn.disabled = true;
       try {
         const payload = {
-          items: [{ product_sku: selectedSku, qty: 1 }],
-          recipient_name: document.getElementById('recipient_name').value.trim(),
-          recipient_phone: document.getElementById('recipient_phone').value.trim(),
-          province: document.getElementById('province').value.trim(),
-          city: document.getElementById('city').value.trim(),
-          postal_code: document.getElementById('postal_code').value.trim(),
-          address_line: document.getElementById('address_line').value.trim(),
-          shipping_method: document.getElementById('shipping_method').value,
-          customer_note: document.getElementById('customer_note').value.trim(),
-          save_address: document.getElementById('save_address').checked,
+          items: [{ product_sku: product.sku, qty: qty }],
+          recipient_name: $('recipient_name').value.trim(),
+          recipient_phone: digits($('recipient_phone').value),
+          province: $('province').value.trim(),
+          city: $('city').value.trim(),
+          postal_code: digits($('postal_code').value) || null,
+          address_line: $('address_line').value.trim(),
+          shipping_method: $('shipping_method').value,
+          customer_note: $('customer_note').value.trim() || null,
+          save_address: $('save_address').checked,
         };
         const data = await ScanCarAuth.api('/api/web/orders', { method: 'POST', body: JSON.stringify(payload) });
         currentTracking = data.tracking_code;
-        document.getElementById('paySummary').innerHTML =
-          'کد پیگیری: <b>' + escapeHtml(data.tracking_code) + '</b><br>جمع: ' +
-          Number(data.subtotal).toLocaleString('fa-IR') + ' — ارسال: ' +
-          Number(data.shipping_fee).toLocaleString('fa-IR') +
-          '<br><span class="price">قابل پرداخت: ' + Number(data.total).toLocaleString('fa-IR') + ' ریال</span>';
-        setStep(4);
-        showAlert('سفارش ثبت شد؛ پرداخت را تکمیل کنید.', true);
+        orderTotals = data;
+        setStep(3);
+        renderSummaries();
+        await loadGateways();
+        showAlert('سفارش ' + data.tracking_code + ' ثبت شد؛ پرداخت را تکمیل کنید.', true);
       } catch (e) { showAlert(e.message, false); }
+      btn.disabled = false;
     };
 
-    document.getElementById('btnMockPay').onclick = async function () {
-      if (!currentTracking) return;
+    /* ---------- STEP 3: payment ---------- */
+    async function loadGateways() {
+      $('gwBox').innerHTML = '<p class="muted">در حال بارگذاری…</p>';
       try {
-        const data = await ScanCarAuth.api('/api/web/orders/' + encodeURIComponent(currentTracking) + '/mock-pay', { method: 'POST', body: '{}' });
-        document.getElementById('orderDone').classList.remove('hidden');
-        document.getElementById('doneDetail').textContent = 'وضعیت ارسال: ' + (data.fulfillment_status || 'awaiting_shipment');
-        showAlert(data.message || 'پرداخت موفق', true);
-      } catch (e) { showAlert(e.message, false); }
-    };
-
-    document.getElementById('btnRealPay').onclick = async function () {
-      if (!currentTracking) return;
-      try {
-        const data = await ScanCarAuth.api('/api/web/orders/' + encodeURIComponent(currentTracking) + '/pay', { method: 'POST', body: '{}' });
-        if (data.payment_url) location.href = data.payment_url;
-        else showAlert(data.message || 'لینک درگاه در دسترس نیست', false);
-      } catch (e) { showAlert(e.message, false); }
-    };
-
-    // If returned from login with token, jump to shipping
-    if (ScanCarAuth.getToken() && location.search.indexOf('checkout=1') >= 0) {
-      document.getElementById('btnBuy').click();
+        const data = await ScanCarAuth.api('/api/web/payment-methods');
+        payMethods = data.methods || [];
+      } catch (e) { payMethods = []; }
+      if (!payMethods.length) {
+        $('gwBox').innerHTML = '<p class="muted">روش پرداخت در دسترس نیست — بعداً تلاش کنید.</p>';
+        return;
+      }
+      const def = payMethods.find(function (m) { return m.default; }) || payMethods.find(function (m) { return m.available; }) || payMethods[0];
+      chosenGw = def.id;
+      $('gwBox').innerHTML = payMethods.map(function (m) {
+        return '<label class="gw' + (m.id === chosenGw ? ' on' : '') + (m.available ? '' : ' dis') + '">' +
+          '<input type="radio" name="gw" value="' + m.id + '"' + (m.id === chosenGw ? ' checked' : '') + (m.available ? '' : ' disabled') + ' />' +
+          '<span><span class="t">' + escapeHtml(m.title) + (m.available ? '' : ' — غیرفعال') + '</span>' +
+          '<br /><span class="d">' + (m.id === 'zarinpal' ? 'پرداخت امن آنلاین با تمام کارت‌های عضو شتاب' :
+            m.id === 'mock' ? 'فقط برای تست — بدون پرداخت واقعی' :
+            'هماهنگی تلفنی برای پرداخت دستی') + '</span></span></label>';
+      }).join('');
+      Array.prototype.forEach.call($('gwBox').querySelectorAll('input[name=gw]'), function (r) {
+        r.onchange = function () {
+          chosenGw = r.value;
+          Array.prototype.forEach.call($('gwBox').querySelectorAll('.gw'), function (el) {
+            el.classList.toggle('on', el.querySelector('input').value === chosenGw);
+          });
+        };
+      });
     }
 
-    loadProducts().catch(function (e) {
+    $('btnPay').onclick = async function () {
+      if (!currentTracking || !chosenGw) return;
+      const btn = this; btn.disabled = true;
+      try {
+        if (chosenGw === 'mock') {
+          const data = await ScanCarAuth.api('/api/web/orders/' + encodeURIComponent(currentTracking) + '/mock-pay', { method: 'POST', body: '{}' });
+          $('orderDone').classList.remove('hidden');
+          $('doneDetail').innerHTML = 'کد پیگیری: <b>' + escapeHtml(currentTracking) + '</b> — وضعیت: ' + (data.fulfillment_status === 'awaiting_shipment' ? 'آماده ارسال' : escapeHtml(data.fulfillment_status || '')) +
+            '<br /><a href="account.html">پیگیری در حساب کاربری →</a>';
+          $('btnPay').classList.add('hidden');
+          showAlert('پرداخت با موفقیت انجام شد ✅', true);
+        } else if (chosenGw === 'zarinpal') {
+          const data = await ScanCarAuth.api('/api/web/orders/' + encodeURIComponent(currentTracking) + '/pay', { method: 'POST', body: '{}' });
+          if (data.payment_url) { location.href = data.payment_url; return; }
+          showAlert(data.message || 'لینک درگاه در دسترس نیست', false);
+        } else {
+          showAlert('برای این روش، هماهنگی تلفنی انجام می‌شود. سفارش شما ثبت ماند.', false);
+        }
+      } catch (e) { showAlert(e.message, false); }
+      btn.disabled = false;
+    };
+    $('btnBack2').onclick = function () { setStep(2); };
+
+    /* ---------- boot ---------- */
+    if (ScanCarAuth.getToken()) {
+      ScanCarAuth.me().then(function (u) {
+        const a = $('navAuth');
+        a.href = 'account.html';
+        a.textContent = (u && u.name) ? u.name : (u.phone || 'حساب من');
+      }).catch(function () { ScanCarAuth.setToken(null); });
+    }
+
+    loadProducts().then(renderQty).catch(function (e) {
       showAlert('خطا در بارگذاری: ' + e.message + ' — Backend روشن است؟', false);
     });
   </script>
