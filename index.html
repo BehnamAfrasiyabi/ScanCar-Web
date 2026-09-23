@@ -1,1 +1,98 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="images/logo.png" rel="shortcut icon" type="image/png" />
+  <title>SCANCAR S1 | دیاگ خودرویی حرفه‌ای</title>
+  <meta name="description" content="SCANCAR S1؛ دیاگ خودرویی حرفه‌ای با تشخیص سریع، دقیق و آفلاین." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://scancar.ir/" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#000; --text:#fff; --muted:#b0b0b0; --accent:#ff2d2d; --border:#222; --card:#111; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    header{position:fixed;inset:0 0 auto;z-index:20;background:rgba(0,0,0,.9);border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+    .logo{font-weight:800;font-size:20px}
+    .logo span{color:var(--accent)}
+    nav{display:flex;gap:20px;align-items:center;font-size:14px;color:var(--muted)}
+    nav a:hover{color:#fff}
+    a.account-btn,.account-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid var(--border);border-radius:24px;font-size:14px;font-weight:500;color:#fff}
+    a.account-btn:hover{border-color:var(--accent);background:rgba(255,45,45,.08)}
+    .hero{min-height:100vh;display:flex;align-items:center;padding-top:90px;background:radial-gradient(circle at 25% 40%,rgba(255,45,45,.1),transparent 50%),#000}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+    @media(max-width:800px){.hero-inner{grid-template-columns:1fr;text-align:center}}
+    h1{font-size:clamp(40px,6vw,72px);font-weight:900;line-height:1.1;margin-bottom:16px}
+    h1 .red{color:var(--accent)}
+    .sub{font-size:clamp(18px,2.5vw,28px);color:#eee;margin-bottom:16px}
+    .desc{color:var(--muted);margin-bottom:28px;max-width:480px}
+    .cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#ff4d4d,#cc0000);color:#fff;border-radius:30px;padding:14px 28px;font-weight:700}
+    .cta:hover{filter:brightness(1.08)}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:60px 0}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
+    .card h3{margin-bottom:8px}
+    .card p{color:var(--muted);font-size:14px}
+    footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:13px;text-align:center}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">SCAN<span>CAR</span></a>
+      <nav>
+        <a href="shop.html">فروشگاه</a>
+        <a href="#features">ویژگی‌ها</a>
+        <a class="account-btn" id="accountBtn" href="login.html">
+          <span id="accountBtnLabel">ورود / عضویت</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h1>SCAN<span class="red">CAR</span> S1</h1>
+          <p class="sub">دیاگ خودرویی حرفه‌ای</p>
+          <p class="desc">تشخیص سریع و دقیق، آفلاین پس از نصب پک. دستگاه را از فروشگاه سفارش دهید؛ نرم‌افزار ECU را از اپلیکیشن بخرید.</p>
+          <a class="cta" href="shop.html">خرید دستگاه</a>
+          <a class="cta" href="login.html?mode=register" style="margin-right:10px;background:transparent;border:1px solid var(--border)">عضویت</a>
+        </div>
+        <div>
+          <img src="images/Product_S1.png" alt="ScanCar S1" style="width:100%;max-width:420px;border-radius:20px;margin:0 auto;display:block" onerror="this.style.display='none'" />
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="container card-grid">
+      <div class="card"><h3>آفلاین</h3><p>پس از نصب پک روی دستگاه، تشخیص بدون اینترنت کار می‌کند.</p></div>
+      <div class="card"><h3>فروش سخت‌افزار</h3><p>سفارش دستگاه با آدرس و ارسال از وب‌سایت.</p></div>
+      <div class="card"><h3>پک نرم‌افزاری</h3><p>ECUها از داخل اپلیکیشن روی دستگاه نصب می‌شوند.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© ScanCar — <a href="login.html">ورود</a> · <a href="account.html">حساب کاربری</a> · <a href="shop.html">فروشگاه</a></div>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('accountBtn');
+      var label = document.getElementById('accountBtnLabel');
+      if (!btn || !window.ScanCarAuth) return;
+      if (ScanCarAuth.getToken()) {
+        ScanCarAuth.me().then(function (u) {
+          btn.href = 'account.html';
+          if (label) label.textContent = (u && u.name) ? u.name : 'حساب من';
+        }).catch(function () { ScanCarAuth.setToken(null); });
+      }
+    })();
+  </script>
+</body>
+</html>
