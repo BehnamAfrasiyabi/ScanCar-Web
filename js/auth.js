@@ -24,7 +24,7 @@
     return /^09\d{9}$/.test(s) ? s : null;
   }
   function apiBase() {
-    return String(localStorage.getItem(API_KEY) || 'http://127.0.0.1:8000').replace(/\/$/, '');
+    return String(localStorage.getItem(API_KEY) || 'https://api.scancar.ir').replace(/\/$/, '');
   }
 
   function getToken() {
