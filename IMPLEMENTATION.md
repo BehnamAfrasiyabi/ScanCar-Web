@@ -26,11 +26,11 @@
 | ID | Task | Status |
 |---|---|---|
 | WEB-B01 | Hardware product catalog | done (Admin `type=hardware` + `/api/web/hardware-products`) |
-| WEB-B02 | Hardware order form | done (`shop.html`) |
-| WEB-B03 | Customer contact/address validation | done |
-| WEB-B04 | Payment abstraction | done (mock + `/pay` gateway path) |
+| WEB-B02 | Hardware order form | done (`shop.html` — 3-step: product/qty → address → payment) |
+| WEB-B03 | Customer contact/address validation | done (+ saved-address prefill via `/api/web/address-prefill`) |
+| WEB-B04 | Payment abstraction | done (gateway choice UI from `/api/web/payment-methods`; mock + `/pay` gateway path) |
 | WEB-B05 | Payment callback/idempotency | partial (reuses Admin payment providers) |
-| WEB-B06 | Order tracking | done (API + summary on shop) |
+| WEB-B06 | Order tracking | done (account.html shipment timeline + postal tracking number with copy button) |
 | WEB-B07 | Admin order integration | done (`channel=web_hardware`, fulfillment_status) |
 
 ## Phase WEB-C — SEO and trust
@@ -53,6 +53,16 @@
 | WEB-D03 | Error/analytics strategy | todo |
 | WEB-D04 | E2E checkout tests | todo |
 | WEB-D05 | Deployment/rollback checklist | todo |
+
+## Checkpoint — 2026-09-24 (web commerce E2E)
+
+- **qty + full checkout on web**: `shop.html` has a qty stepper (1–10), client validation, live order summary and a payment step with gateway options fetched from `GET /api/web/payment-methods` (mock/zarinpal/external, availability driven by `SCANCAR_PAYMENT_MODE`).
+- **Saved address**: `save_address` on order create persists to `shipping_addresses`; next checkout pre-fills from `GET /api/web/address-prefill`.
+- **Account panel**: `account.html` shows per-order shipment timeline (`awaiting_payment → awaiting_shipment → shipped → delivered`), postal tracking number with copy button, and saved-address profile.
+- **Backend additions** (ScanCar-Admin): `GET /api/web/payment-methods`, `GET /api/web/address-prefill`; order items + postal tracking serialized in order detail.
+- **DB live**: 4 pending migrations applied (app_api_tokens, firmware_releases, accounting, hardware_commerce) + `HardwareProductSeeder` run — product `HW-SCARDIAG` (8,900,000 IRR) is live.
+- **E2E verified in browser**: login gate → shop → address → mock pay → paid + awaiting_shipment; account timeline + postal box verified with a test tracking code.
+- **index.html**: FAQ/privacy/terms/contact sections + legal nav restored to pass `scripts/validate-site.mjs` (14/14).
 
 ## Checkpoint — 2026-09-23
 
