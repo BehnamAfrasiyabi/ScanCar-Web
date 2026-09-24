@@ -6,6 +6,9 @@
   <link href="images/logo.png" rel="shortcut icon" type="image/png" />
   <title>SCANCAR S1 | دیاگ خودرویی حرفه‌ای</title>
   <meta name="description" content="SCANCAR S1؛ دیاگ خودرویی حرفه‌ای با تشخیص سریع، دقیق و آفلاین." />
+  <meta property="og:title" content="SCANCAR S1 | دیاگ خودرویی حرفه‌ای" />
+  <meta property="og:description" content="تشخیص سریع و دقیق، آفلاین پس از نصب پک." />
+  <meta property="og:type" content="product" />
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://scancar.ir/" />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -36,6 +39,12 @@
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
     .card h3{margin-bottom:8px}
     .card p{color:var(--muted);font-size:14px}
+    .legal-nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+    .legal-nav a{color:var(--muted);font-size:13px}
+    .legal-nav a:hover{color:#fff}
+    .legal{padding:26px 0 8px}
+    .legal h2{font-size:18px;margin-bottom:10px}
+    .legal p{color:var(--muted);font-size:14px;max-width:760px;margin-bottom:10px}
     footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:13px;text-align:center}
   </style>
 </head>
@@ -53,7 +62,8 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
+    <a href="#main-content" class="skip" style="position:absolute;right:-9999px">پرش به محتوا</a>
     <section class="hero">
       <div class="container hero-inner">
         <div>
@@ -74,11 +84,63 @@
       <div class="card"><h3>فروش سخت‌افزار</h3><p>سفارش دستگاه با آدرس و ارسال از وب‌سایت.</p></div>
       <div class="card"><h3>پک نرم‌افزاری</h3><p>ECUها از داخل اپلیکیشن روی دستگاه نصب می‌شوند.</p></div>
     </section>
+
+    <nav class="legal-nav container" aria-label="پیوندهای حقوقی">
+      <a href="#faq">پرسش‌های متداول</a>
+      <a href="#privacy">حریم خصوصی</a>
+      <a href="#terms">قوانین</a>
+    </nav>
+
+    <section id="faq" class="container legal">
+      <h2>پرسش‌های متداول</h2>
+      <p><strong>دستگاه چطور کار می‌کند؟</strong> اسکن‌کار S1 به پورت OBD خودرو متصل می‌شود و با پک نرم‌افزاری هر خودرو، عیب‌یابی را انجام می‌دهد.</p>
+      <p><strong>پک نرم‌افزاری را از کجا بخرم؟</strong> پس از دریافت دستگاه، از داخل اپلیکیشن ScanCar پک خودروی خود را خریداری و روی دستگاه نصب کنید.</p>
+      <p><strong>ارسال چقدر طول می‌کشد؟</strong> سفارش‌ها از طریق پست پیشتاز یا تیپاکس ارسال می‌شوند؛ کد رهگیری در پنل حساب کاربری نمایش داده می‌شود.</p>
+    </section>
+
+    <section id="privacy" class="container legal">
+      <h2>حریم خصوصی</h2>
+      <p>اطلاعات شخصی (نام، شماره موبایل و آدرس) فقط برای پردازش سفارش و ارسال استفاده می‌شود و به شخص ثالث فروخته نمی‌شود. شماره موبایل صرفاً برای ورود امن با کد پیامکی به‌کار می‌رود.</p>
+    </section>
+
+    <section id="terms" class="container legal">
+      <h2>قوانین خرید</h2>
+      <p>ثبت سفارش به معنای پذیرش قوانین فروش است. تا ۷ روز پس از دریافت، در صورت سلامت فیزیکی دستگاه، امکان بازگشت کالا وجود دارد. هزینه ارسال بر اساس روش انتخابی محاسبه می‌شود.</p>
+    </section>
+
+    <section id="contact" class="container legal">
+      <h2>تماس با ما</h2>
+      <p>پشتیبانی فنی و سفارش‌ها: <a href="mailto:support@scancar.ir" style="color:var(--accent)">support@scancar.ir</a> — پاسخ‌گویی شنبه تا پنجشنبه، ۹ تا ۱۸.</p>
+    </section>
+
+    <nav class="legal-nav container" aria-label="پیوندهای حقوقی" style="margin-top:18px">
+      <a href="#faq">پرسش‌های متداول</a>
+      <a href="#privacy">حریم خصوصی</a>
+      <a href="#terms">قوانین</a>
+      <a href="#contact">تماس با ما</a>
+    </nav>
   </main>
 
   <footer>
     <div class="container">© ScanCar — <a href="login.html">ورود</a> · <a href="account.html">حساب کاربری</a> · <a href="shop.html">فروشگاه</a></div>
   </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "ScanCar S1",
+    "description": "دستگاه تشخیص عیب خودرو (دیاگ) با پک‌های نرم‌افزاری آفلاین",
+    "brand": { "@type": "Brand", "name": "ScanCar" },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://scancar.ir/shop.html",
+      "priceCurrency": "IRR",
+      "price": "8900000",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
 
   <script src="js/auth.js"></script>
   <script>
