@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>خرید دستگاه ScanCar | فروشگاه سخت‌افزار</title>
-  <meta name="description" content="خرید دستگاه فیزیکی تشخیص عیب ScanCar با ارسال به سراسر ایران" />
+  <title>فروشگاه ScanCar | خرید دستگاه و محصولات</title>
+  <meta name="description" content="خرید محصولات ScanCar با ارسال به سراسر ایران" />
   <link rel="canonical" href="https://scancar.ir/shop.html" />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -26,15 +26,14 @@
     h1{font-size:1.55rem;margin-bottom:6px}
     h2{font-size:1.1rem;margin-bottom:12px}
     .muted{color:var(--muted);font-size:0.9rem}
-    .price{font-size:1.35rem;font-weight:800;color:var(--accent)}
+    .price{font-size:1.2rem;font-weight:800;color:var(--accent)}
     label{display:block;font-size:0.85rem;color:var(--muted);margin:10px 0 4px}
     input,select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#0a0a0a;color:#fff;font-family:inherit;font-size:15px}
     input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
     input.invalid,textarea.invalid{border-color:var(--accent);background:rgba(255,45,45,0.06)}
     textarea{min-height:80px;resize:vertical}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-    @media(max-width:640px){.row,.row3{grid-template-columns:1fr}}
+    @media(max-width:640px){.row{grid-template-columns:1fr}}
     button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;border:none;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;background:linear-gradient(135deg,#ff4d4d,#cc0000);color:#fff}
     button.secondary,.btn.secondary{background:transparent;border:1px solid var(--border);color:#fff}
     button:disabled{opacity:0.5;cursor:not-allowed}
@@ -47,16 +46,21 @@
     .steps span{padding:6px 14px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
     .steps span.on{border-color:var(--accent);color:#fff;background:rgba(255,45,45,0.15)}
     .steps span.done{border-color:var(--ok);color:var(--ok)}
-    .product-title{font-size:1.25rem;font-weight:700}
-    /* qty stepper */
-    .qty{display:flex;align-items:center;gap:14px;margin-top:12px}
-    .qty button{width:40px;height:40px;padding:0;font-size:20px;border-radius:12px}
-    .qty .n{min-width:44px;text-align:center;font-size:1.3rem;font-weight:800}
+    /* product grid */
+    .plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+    .pcard{background:#0d0d0d;border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
+    .pcard.sel{border-color:var(--accent);background:rgba(255,45,45,0.05)}
+    .pcard .t{font-weight:800;font-size:1.05rem}
+    .pcard .d{font-size:0.83rem;color:var(--muted);flex:1}
+    .qty{display:flex;align-items:center;gap:10px;margin-top:4px}
+    .qty button{width:36px;height:36px;padding:0;font-size:19px;border-radius:10px}
+    .qty button.ghost{background:transparent;border:1px solid var(--border)}
+    .qty .n{min-width:36px;text-align:center;font-size:1.15rem;font-weight:800}
+    .cartline{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border);font-size:0.92rem}
     /* checkout grid */
     .grid{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;align-items:start}
     @media(max-width:820px){.grid{grid-template-columns:1fr}}
     .summary{position:sticky;top:16px}
-    .summary .line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border);font-size:0.92rem}
     .summary .total{display:flex;justify-content:space-between;padding-top:12px;font-weight:800;font-size:1.05rem}
     .summary .total b{color:var(--accent)}
     /* gateway options */
@@ -66,7 +70,6 @@
     .gw.dis{opacity:0.45;cursor:not-allowed}
     .gw .t{font-weight:700;font-size:0.95rem}
     .gw .d{font-size:0.8rem;color:var(--muted)}
-    .badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;border:1px solid var(--ok);color:var(--ok)}
     .cfg{font-size:12px;color:var(--muted);margin-top:24px;word-break:break-all}
     .fielderr{font-size:11px;color:var(--accent);margin-top:3px;display:none}
     .fielderr.show{display:block}
@@ -78,24 +81,24 @@
       <a class="logo" href="index.html">SCAN<span>CAR</span></a>
       <nav>
         <a href="index.html">صفحه اصلی</a>
-        <a href="login.html" id="navAuth">ورود / عضویت</a>
+        <a href="login.html" id="navAuth">ورود یا عضویت</a>
         <a href="account.html">حساب من</a>
       </nav>
     </header>
 
     <div class="steps">
-      <span id="s1" class="on">۱. محصول</span>
+      <span id="s1" class="on">۱. انتخاب محصولات</span>
       <span id="s2">۲. آدرس و ارسال</span>
       <span id="s3">۳. پرداخت</span>
     </div>
 
     <div id="alert" class="msg hidden"></div>
 
-    <!-- STEP 1: product -->
+    <!-- STEP 1: product grid + per-product qty -->
     <section id="stepProduct" class="card">
-      <h1>خرید دستگاه فیزیکی</h1>
-      <p class="muted" style="margin-bottom:16px">پک‌های نرم‌افزاری ECU از داخل اپلیکیشن خریداری می‌شوند؛ اینجا فقط سخت‌افزار ارسال می‌شود.</p>
-      <div id="productBox"><p class="muted">در حال بارگذاری کاتالوگ…</p></div>
+      <h1>فروشگاه</h1>
+      <p class="muted" style="margin-bottom:16px">تعداد محصولات مورد نظر را انتخاب کنید؛ پک‌های نرم‌افزاری ECU از داخل اپلیکیشن خریداری می‌شوند.</p>
+      <div id="productBox" class="plist"><p class="muted">در حال بارگذاری محصولات…</p></div>
       <div class="actions">
         <button type="button" id="btnBuy">ادامه خرید</button>
         <a class="btn secondary" href="index.html">بازگشت</a>
@@ -118,8 +121,8 @@
           </div>
           <div>
             <label>موبایل گیرنده *</label>
-            <input id="recipient_phone" type="tel" inputmode="numeric" maxlength="11" placeholder="09xxxxxxxxx" />
-            <div class="fielderr" id="e_recipient_phone">شماره موبایل معتبر (۱۱ رقم، شروع با ۰۹) وارد کنید</div>
+            <input id="recipient_phone" type="tel" inputmode="numeric" dir="ltr" maxlength="14" placeholder="09xxxxxxxxx" />
+            <div class="fielderr" id="e_recipient_phone">شماره موبایل معتبر وارد کنید (مثلاً 09123456789)</div>
           </div>
         </div>
         <div class="row">
@@ -137,7 +140,7 @@
         <div class="row">
           <div>
             <label>کد پستی (در صورت وجود)</label>
-            <input id="postal_code" inputmode="numeric" maxlength="10" placeholder="۱۰ رقم" />
+            <input id="postal_code" inputmode="numeric" dir="ltr" maxlength="10" placeholder="۱۰ رقم" />
             <div class="fielderr" id="e_postal_code">کد پستی باید ۱۰ رقم باشد</div>
           </div>
           <div>
@@ -189,13 +192,12 @@
     document.getElementById('apiLabel').textContent = API;
 
     const $ = (id) => document.getElementById(id);
-    let product = null;      // selected product row
-    let qty = 1;
+    let products = [];        // full active catalog
+    let cart = {};            // sku -> qty (only > 0 present)
     let shippingFee = 0;
     let currentTracking = null;
     let payMethods = [];
     let chosenGw = null;
-    let orderTotals = null;
 
     function showAlert(text, ok) {
       const el = $('alert');
@@ -207,6 +209,8 @@
     function clearAlert() { $('alert').classList.add('hidden'); }
 
     function money(n) { return Number(n || 0).toLocaleString('fa-IR'); }
+    const FA = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰'];
+    function faNum(n) { return FA[n] !== undefined ? FA[n] : Number(n).toLocaleString('fa-IR'); }
 
     function escapeHtml(s) {
       return String(s || '').replace(/[&<>"']/g, function (c) {
@@ -224,34 +228,57 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* ---------- STEP 1: product + qty ---------- */
+    function cartItems() {
+      return products.filter(function (p) { return cart[p.sku] > 0; });
+    }
+    function cartCount() {
+      return cartItems().reduce(function (a, p) { return a + cart[p.sku]; }, 0);
+    }
+    function cartSubtotal() {
+      return cartItems().reduce(function (a, p) { return a + p.price * cart[p.sku]; }, 0);
+    }
+
+    /* ---------- STEP 1: product grid + per-product qty ---------- */
     async function loadProducts() {
       const data = await ScanCarAuth.api('/api/web/hardware-products');
-      const list = data.products || [];
-      if (!list.length) {
-        $('productBox').innerHTML = '<p class="muted">محصول سخت‌افزاری فعالی نیست.</p>';
+      products = data.products || [];
+      if (!products.length) {
+        $('productBox').innerHTML = '<p class="muted">در حال حاضر محصولی برای فروش موجود نیست.</p>';
         return;
       }
-      product = list[0];
-      qty = 1;
-      $('productBox').innerHTML =
-        '<div class="product-title">' + escapeHtml(product.title) + '</div>' +
-        '<p class="muted">' + escapeHtml(product.description || '') + '</p>' +
-        '<div class="price">' + money(product.price) + ' ریال</div>' +
-        '<div class="qty">' +
-        '<button type="button" id="qMinus">−</button>' +
-        '<span class="n" id="qNum">۱</span>' +
-        '<button type="button" id="qPlus">+</button>' +
-        '<span class="muted">تعداد</span>' +
-        '</div>';
-      $('qPlus').onclick = function () { if (qty < 10) { qty++; renderQty(); } };
-      $('qMinus').onclick = function () { if (qty > 1) { qty--; renderQty(); } };
+      renderGrid();
     }
-    const FA = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰'];
-    function renderQty() {
-      $('qNum').textContent = FA[qty];
-      $('qMinus').disabled = qty <= 1;
-      $('qPlus').disabled = qty >= 10;
+
+    function renderGrid() {
+      $('productBox').innerHTML = products.map(function (p) {
+        const q = cart[p.sku] || 0;
+        return '<div class="pcard' + (q > 0 ? ' sel' : '') + '" id="pc_' + escapeHtml(p.sku) + '">' +
+          '<div class="t">' + escapeHtml(p.title) + '</div>' +
+          '<div class="d">' + escapeHtml(p.description || '') + '</div>' +
+          '<div class="price">' + money(p.price) + ' ریال</div>' +
+          '<div class="qty">' +
+            '<button type="button" class="ghost" data-add="' + escapeHtml(p.sku) + '">+</button>' +
+            '<span class="n" id="qn_' + escapeHtml(p.sku) + '">' + faNum(q) + '</span>' +
+            '<button type="button" class="ghost" data-sub="' + escapeHtml(p.sku) + '">−</button>' +
+            '<span class="muted">' + (q > 0 ? 'در سبد' : 'برای افزودن + را بزنید') + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      Array.prototype.forEach.call($('productBox').querySelectorAll('button[data-add]'), function (b) {
+        b.onclick = function () { changeQty(b.dataset.add, +1); };
+      });
+      Array.prototype.forEach.call($('productBox').querySelectorAll('button[data-sub]'), function (b) {
+        b.onclick = function () { changeQty(b.dataset.sub, -1); };
+      });
+    }
+
+    function changeQty(sku, delta) {
+      const p = products.find(function (x) { return x.sku === sku; });
+      if (!p) return;
+      const next = Math.min(10, Math.max(0, (cart[sku] || 0) + delta));
+      if (next === (cart[sku] || 0)) return;
+      cart[sku] = next;
+      renderGrid();
     }
 
     /* ---------- STEP 2: shipping ---------- */
@@ -259,11 +286,10 @@
       const data = await ScanCarAuth.api('/api/web/shipping-methods');
       const sel = $('shipping_method');
       const methods = data.methods || [];
-      shippingFee = methods.length ? methods[0].fee : 0;
-      sel.innerHTML = methods.map(function (m, i) {
-        if (i === 0) shippingFee = m.fee;
+      sel.innerHTML = methods.map(function (m) {
         return '<option value="' + m.id + '" data-fee="' + m.fee + '">' + escapeHtml(m.title) + ' — ' + money(m.fee) + ' ریال</option>';
       }).join('');
+      shippingFee = methods.length ? Number(methods[0].fee) : 0;
       sel.onchange = function () {
         shippingFee = Number(sel.options[sel.selectedIndex].dataset.fee || 0);
         renderSummaries();
@@ -293,7 +319,7 @@
         if (bad) ok = false;
       }
       mark('recipient_name', 'e_recipient_name', $('recipient_name').value.trim().length < 3);
-      mark('recipient_phone', 'e_recipient_phone', !/^09\d{9}$/.test(digits($('recipient_phone').value)));
+      mark('recipient_phone', 'e_recipient_phone', !ScanCarAuth.normalizePhone($('recipient_phone').value));
       mark('province', 'e_province', $('province').value.trim() === '');
       mark('city', 'e_city', $('city').value.trim() === '');
       mark('address_line', 'e_address_line', $('address_line').value.trim().length < 10);
@@ -303,14 +329,13 @@
     }
 
     function summaryHtml() {
-      const sub = product ? product.price * qty : 0;
-      const total = sub + shippingFee;
-      return '<h2>خلاصه سفارش</h2>' +
-        '<div class="line"><span>' + escapeHtml(product ? product.title : '') + '</span><span>× ' + FA[qty] + '</span></div>' +
-        '<div class="line"><span>قیمت واحد</span><span>' + money(product ? product.price : 0) + '</span></div>' +
-        '<div class="line"><span>جمع کالاها</span><span>' + money(sub) + '</span></div>' +
-        '<div class="line"><span>هزینه ارسال</span><span>' + money(shippingFee) + '</span></div>' +
-        '<div class="total"><span>قابل پرداخت</span><b>' + money(total) + ' ریال</b></div>';
+      const lines = cartItems().map(function (p) {
+        return '<div class="cartline"><span>' + escapeHtml(p.title) + '</span><span>' + faNum(cart[p.sku]) + ' × ' + money(p.price) + '</span></div>';
+      }).join('');
+      const sub = cartSubtotal();
+      return '<h2>خلاصه سفارش</h2>' + lines +
+        '<div class="cartline"><span>هزینه ارسال</span><span>' + money(shippingFee) + '</span></div>' +
+        '<div class="total"><span>قابل پرداخت</span><b>' + money(sub + shippingFee) + ' ریال</b></div>';
     }
     function renderSummaries() {
       $('sumShip').innerHTML = summaryHtml();
@@ -318,7 +343,8 @@
     }
 
     $('btnBuy').onclick = async function () {
-      if (!product) return showAlert('محصولی انتخاب نشده', false);
+      clearAlert();
+      if (cartCount() === 0) { showAlert('حداقل یک محصول انتخاب کنید — روی + بزنید.', false); return; }
       if (!ScanCarAuth.getToken()) { location.href = 'login.html?next=shop.html'; return; }
       try {
         await ScanCarAuth.me();
@@ -339,9 +365,9 @@
       const btn = this; btn.disabled = true;
       try {
         const payload = {
-          items: [{ product_sku: product.sku, qty: qty }],
+          items: cartItems().map(function (p) { return { product_sku: p.sku, qty: cart[p.sku] }; }),
           recipient_name: $('recipient_name').value.trim(),
-          recipient_phone: digits($('recipient_phone').value),
+          recipient_phone: ScanCarAuth.normalizePhone($('recipient_phone').value),
           province: $('province').value.trim(),
           city: $('city').value.trim(),
           postal_code: digits($('postal_code').value) || null,
@@ -352,12 +378,11 @@
         };
         const data = await ScanCarAuth.api('/api/web/orders', { method: 'POST', body: JSON.stringify(payload) });
         currentTracking = data.tracking_code;
-        orderTotals = data;
         setStep(3);
         renderSummaries();
         await loadGateways();
         showAlert('سفارش ' + data.tracking_code + ' ثبت شد؛ پرداخت را تکمیل کنید.', true);
-      } catch (e) { showAlert(e.message, false); }
+      } catch (e) { showAlert(e.message || 'ثبت سفارش ناموفق بود', false); }
       btn.disabled = false;
     };
 
@@ -410,7 +435,7 @@
         } else {
           showAlert('برای این روش، هماهنگی تلفنی انجام می‌شود. سفارش شما ثبت ماند.', false);
         }
-      } catch (e) { showAlert(e.message, false); }
+      } catch (e) { showAlert(e.message || 'پرداخت ناموفق بود', false); }
       btn.disabled = false;
     };
     $('btnBack2').onclick = function () { setStep(2); };
@@ -424,8 +449,8 @@
       }).catch(function () { ScanCarAuth.setToken(null); });
     }
 
-    loadProducts().then(renderQty).catch(function (e) {
-      showAlert('خطا در بارگذاری: ' + e.message + ' — Backend روشن است؟', false);
+    loadProducts().catch(function (e) {
+      showAlert('خطا در بارگذاری محصولات: ' + e.message + ' — Backend روشن است؟', false);
     });
   </script>
 </body>
